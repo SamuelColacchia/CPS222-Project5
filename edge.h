@@ -1,6 +1,12 @@
 #include <iostream>
 #include <string>
-
+#include <iomanip>
+#include <cstdlib>
+#include <cstdio>
+#include <fstream>
+using std::ifstream;
+using std::cerr;
 using std::string;
 using std::cout;
+using std::cin;
 using std::endl;
