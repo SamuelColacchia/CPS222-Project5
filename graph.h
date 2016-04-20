@@ -18,6 +18,6 @@ private:
         vector <town> _townVector;
 
 public:
-  bool addTown();
-  bool addRoad();
+  void addTown(string name, bool capital);
+  void addRoad(string currentTown, string nextTown, int ditance, bool bridge);
 };

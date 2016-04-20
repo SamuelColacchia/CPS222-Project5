@@ -11,7 +11,7 @@ public:
         town(string name, bool capital);
 
 private:
-        const string _name;
+        string _name;
         bool _capital;
 
 };
