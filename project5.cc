@@ -29,9 +29,12 @@ int main(int argc, char const *argv[])
     cout << "towninput:" << townInput << endl;
   }
 
+
+  getline(cin,roadInput);
   for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
   {
-    cin >> roadInput;
+    
+    getline(cin,roadInput);
     cout << "roadinput:" << roadInput << endl;
   }
 
