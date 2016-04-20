@@ -6,12 +6,17 @@ int numTowns;
 int numRoads;
 string townInput;
 string roadInput;
+string regionCapital;
 
 int main(int argc, char const *argv[])
 {
   cout << "Project 5" << endl;
 
   cout << endl;
+
+  //loop looking eof
+
+  //Call create graph
 
   cout << "(#TOWNS #ROADS)" << endl;
 
@@ -25,17 +30,27 @@ int main(int argc, char const *argv[])
 
   for (int loopNumTowns = 0; loopNumTowns < numTowns; loopNumTowns++)
   {
-    cin >> townInput;
-    cout << "towninput:" << townInput << endl;
+    if (loopNumTowns == 0)
+    {
+      cin >> regionCapital;
+      cout << "regionCapital:" << regionCapital << endl;
+    }
+    else
+    {
+      cin >> townInput;
+      cout << "towninput:" << townInput << endl;
+    }
+
+    //use the created graph to create towns
   }
 
 
   getline(cin,roadInput);
   for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
   {
-    
     getline(cin,roadInput);
     cout << "roadinput:" << roadInput << endl;
+    //use the created graph to create roads
   }
 
 // while (true)

@@ -9,12 +9,12 @@ using std::endl;
 class road {
 
 public:
-        road();
+        road(string currentTown, string nextTown, int distance, bool bridge);
 
 private:
-        static int const _distance;
+        int _distance;
         bool _bridge;
-        string static const _currentTown;
-        string static const _nextTown;
+        string  _currentTown;
+        string  _nextTown;
 
 };

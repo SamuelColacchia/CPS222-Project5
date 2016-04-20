@@ -7,9 +7,11 @@ using std::cin;
 using std::endl;
 
 class town {
+public:
+        town(string name, bool capital);
 
 private:
-  const string _name;
-  bool _capital;
+        const string _name;
+        bool _capital;
 
 };
