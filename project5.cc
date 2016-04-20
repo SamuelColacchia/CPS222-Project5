@@ -1,14 +1,30 @@
-#include "vertice.h"
+#include "graph.h"
 
-FILE *_stream;
+// FILE *_stream;
+
+char something;
 
 int main(int argc, char const *argv[])
 {
-  cout << "test data " << endl;
-  string testD;
-  string inputD;
-  cin >> testD;
-  cout << "test data out:" << testD << endl;
+  cout << "Project 5" << endl;
+  while (true)
+  {
+    cin.get();
+    cin >> something;
+
+    if (cin.eof())
+    {
+      break;
+    }
+    else
+    {
+      cin.unget();
+    }
+
+
+    cout << "Echo input:" << something << endl;
+  }
+
 
   // while (true)
   // {
@@ -23,12 +39,12 @@ int main(int argc, char const *argv[])
   //   cout << cin << endl;
   // }
 
-  ifstream file ("sampledata.data");
-  while (getline(file,inputD)) {
-    cout << "current line:" << inputD << endl;
-    cout << "line pos 0:" << inputD[0] << endl;
-    cout << "line length:" << inputD.length() << endl;
-  }
+  // ifstream file ("sampledata.data");
+  // while (getline(file,inputD)) {
+  //   cout << "current line:" << inputD << endl;
+  //   cout << "line pos 0:" << inputD[0] << endl;
+  //   cout << "line length:" << inputD.length() << endl;
+  // }
 
   // while (!cin.eof())
   // {
