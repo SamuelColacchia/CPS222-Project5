@@ -9,17 +9,16 @@ int main(int argc, char const *argv[])
   cout << "Project 5" << endl;
   while (true)
   {
-    cin.get();
+
     cin >> something;
+
+
 
     if (cin.eof())
     {
       break;
     }
-    else
-    {
-      cin.unget();
-    }
+
 
 
     cout << "Echo input:" << something << endl;

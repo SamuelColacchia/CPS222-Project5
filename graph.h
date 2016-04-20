@@ -8,7 +8,7 @@ using std::string;
 using std::ifstream;
 
 class graph {
-  
+
 public:
         graph(string name);
 
