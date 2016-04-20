@@ -1,8 +1,6 @@
-project5: road.o town.o graph.o project5.o
+project5:  Graph.o project5.o
 	g++ -o $@ $^
-graph.o: graph.h
-road.o: road.h
-town.o: town.h
+graph.o: Graph.h
 
 $.0: $.cc
 	g++ -c $<
