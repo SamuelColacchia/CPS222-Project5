@@ -20,4 +20,5 @@ private:
 public:
   void addTown(string name, bool capital);
   void addRoad(string currentTown, string nextTown, int ditance, bool bridge);
+  void print::printRoads();
 };

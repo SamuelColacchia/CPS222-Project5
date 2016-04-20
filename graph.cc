@@ -17,3 +17,15 @@ void graph::addRoad(string currentTown, string nextTown, int ditance, bool bridg
   road theRoad(currentTown, nextTown, ditance, bridge);
   _roadVector.insert(_roadVector.begin(), theRoad);
 }
+
+void graph::printRoads()
+{
+  for (vector<roads> it = _roadVector.begin(); it != _roadVector.end(); it++)
+  {
+    cout << "road:" << *it << endl;
+  }
+}
+
+// May add this at some point
+// void graph::iterate()
+// {}
