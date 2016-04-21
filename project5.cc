@@ -4,6 +4,7 @@
 
 int numTowns;
 int numRoads;
+vector <string> fields;
 string townInput;
 string roadInput;
 string regionCapital;
@@ -20,6 +21,10 @@ int main(int argc, char const *argv[])
 
   cout << "(#TOWNS #ROADS)" << endl;
 
+while(true){
+  if (cin.eof()) {
+    std::cout << "no more Data" << std::endl;
+  }
   cin >> numTowns;
 
   cin >> numRoads;
@@ -33,25 +38,42 @@ int main(int argc, char const *argv[])
     if (loopNumTowns == 0)
     {
       cin >> regionCapital;
+      graph.addTown(regionCapital, true);
       cout << "regionCapital:" << regionCapital << endl;
+
     }
     else
     {
       cin >> townInput;
       cout << "towninput:" << townInput << endl;
+      graph.addTown(regionCapital, false);
     }
 
     //use the created graph to create towns
   }
-
-
   getline(cin,roadInput);
   for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
   {
-    getline(cin,roadInput);
+    split( fields, getline(cin,roadInput);, is_any_of( " " ) );
+
+    string heads = fields[0];
+    string tails = feilds[1];
+    double distance = feilds[2];
+    bool bridge;
+    if(fields[3] == B){
+      bridge = true;
+    }
+    else[
+      bridge = false;
+    ]
+
+    graph.addRoad(heads, tails, distance, bridge);
+
     cout << "roadinput:" << roadInput << endl;
     //use the created graph to create roads
   }
+  getline(cin,roadInput);
+}
 
 // while (true)
 // {
