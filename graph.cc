@@ -20,10 +20,11 @@ void graph::addRoad(string currentTown, string nextTown, int ditance, bool bridg
 
 void graph::printRoads()
 {
-  for (vector<roads> it = _roadVector.begin(); it != _roadVector.end(); it++)
-  {
-    cout << "road:" << *it << endl;
-  }
+  // for (vector<road>::iterator it = _roadVector.begin(); it != _roadVector.end(); it++)
+  // {
+  //   cout << *it.getCurrentTown() << endl;
+  // }
+  cout << _roadVector[0].getCurrentTown() << endl;
 }
 
 // May add this at some point

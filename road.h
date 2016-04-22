@@ -11,6 +11,11 @@ class road {
 public:
         road(string currentTown, string nextTown, int distance, bool bridge);
 
+public:
+        string getCurrentTown();
+
+        string getNextTown();
+
 private:
         int _distance;
         bool _bridge;
