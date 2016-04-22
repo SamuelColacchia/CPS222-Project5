@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
 
   //loop looking eof
 
-  //Call create graph
+  graph theGraph();
 
   cout << "(#TOWNS #ROADS)" << endl;
 
@@ -38,7 +38,7 @@ while(true){
     if (loopNumTowns == 0)
     {
       cin >> regionCapital;
-      graph.addTown(regionCapital, true);
+      //theGraph.addTown(regionCapital, true);
       cout << "regionCapital:" << regionCapital << endl;
 
     }
@@ -46,7 +46,7 @@ while(true){
     {
       cin >> townInput;
       cout << "towninput:" << townInput << endl;
-      graph.addTown(regionCapital, false);
+    //  theGraph.addTown(regionCapital, false);
     }
 
     //use the created graph to create towns
@@ -54,7 +54,7 @@ while(true){
   getline(cin,roadInput);
   for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
   {
-    split( fields, getline(cin,roadInput);, is_any_of( " " ) );
+    split( fields, getline(cin,roadInput), is_any_of( " " ) );
 
     string heads = fields[0];
     string tails = feilds[1];
