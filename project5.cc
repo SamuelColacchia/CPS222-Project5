@@ -1,15 +1,27 @@
 #include "graph.h"
 
-// FILE *_stream;
-
 int numTowns;
 int numRoads;
-vector <string> fields;
+vector<string> fields;
 string townInput;
 string roadInput;
 string regionCapital;
 
-int main(int argc, char const *argv[])
+int roadInputSize;
+
+int roadInputT1Pos;
+int roadInputT2Pos;
+int roadInputBridgePos;
+int roadInputDistPos;
+
+int endNull;
+
+char roadT1;
+string roadT2;
+string roadBridge;
+string roadDist;
+
+int main()
 {
   cout << "Project 5" << endl;
 
@@ -17,63 +29,95 @@ int main(int argc, char const *argv[])
 
   //loop looking eof
 
-  graph theGraph();
+  //Should find a good way to distigesh between graphs
+  graph theGraph;
 
   cout << "(#TOWNS #ROADS)" << endl;
 
-while(true){
-  if (cin.eof()) {
-    std::cout << "no more Data" << std::endl;
-  }
-  cin >> numTowns;
-
-  cin >> numRoads;
-
-  cout << "towns:" << numTowns << endl;
-
-  cout << "roads:" << numRoads << endl;
-
-  for (int loopNumTowns = 0; loopNumTowns < numTowns; loopNumTowns++)
+  while (true)
   {
-    if (loopNumTowns == 0)
+    if (cin.eof())
     {
-      cin >> regionCapital;
-      //theGraph.addTown(regionCapital, true);
-      cout << "regionCapital:" << regionCapital << endl;
-
+      std::cout << "no more Data" << std::endl;
     }
-    else
+    cin >> numTowns;
+
+    cin >> numRoads;
+
+    cout << "towns:" << numTowns << endl;
+
+    cout << "roads:" << numRoads << endl;
+
+    for (int loopNumTowns = 0; loopNumTowns < numTowns; loopNumTowns++)
     {
-      cin >> townInput;
-      cout << "towninput:" << townInput << endl;
-    //  theGraph.addTown(regionCapital, false);
+      if (loopNumTowns == 0)
+      {
+        cin >> regionCapital;
+
+        cout << "regionCapital:" << regionCapital << endl;
+
+        theGraph.addTown(regionCapital, true);
+
+      }
+      else
+      {
+        cin >> townInput;
+        cout << "towninput:" << townInput << endl;
+        theGraph.addTown(regionCapital, false);
+      }
+
+      //use the created graph to create towns
     }
+    getline(cin,roadInput);
+    for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
+    {
+      // split( fields, getline(cin,roadInput), is_any_of( " " ));
+      //
+      // string heads = fields[0];
+      // string tails = feilds[1];
+      // double distance = feilds[2];
+      // bool bridge;
+      // if(fields[3] == B){
+      //   bridge = true;
+      // }
+      // else[
+      //   bridge = false;
+      // ]
 
-    //use the created graph to create towns
-  }
-  getline(cin,roadInput);
-  for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
-  {
-    split( fields, getline(cin,roadInput), is_any_of( " " ) );
+      // roadInput.find(' ')
 
-    string heads = fields[0];
-    string tails = feilds[1];
-    double distance = feilds[2];
-    bool bridge;
-    if(fields[3] == B){
-      bridge = true;
+      roadInputSize = roadInput.size();
+
+      for (int roadPos = 0; roadInputSize > roadPos; roadPos++)
+      {
+        if (roadInput[roadPos] == ' ') {
+          roadInputT1Pos = roadPos;
+          endNull = roadInput.copy(roadT1, 0, roadInputT1Pos);
+
+          roadT1[endNull] = '\n';
+          roadPos++;
+        }
+        else if (roadInput[roadPos] == ' ') {
+          roadInputT2Pos = roadPos;
+          roadPos++;
+        }
+        else if (roadInput[roadPos] == ' ') {
+          roadInputBridgePos = roadPos;
+          roadPos++;
+        }
+        else if (roadInput[roadPos] == ' ') {
+          roadInputDistPos = roadPos;
+          roadPos++;
+        }
+      }
+
+
+      cout << "T1:" << roadT1 << endl;
+      cout << "roadinput:" << roadInput << endl;
+      //use the created graph to create roads
     }
-    else[
-      bridge = false;
-    ]
-
-    graph.addRoad(heads, tails, distance, bridge);
-
-    cout << "roadinput:" << roadInput << endl;
-    //use the created graph to create roads
+    getline(cin,roadInput);
   }
-  getline(cin,roadInput);
-}
 
 // while (true)
 // {
