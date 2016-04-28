@@ -11,17 +11,23 @@ class town;
 class road {
 
 public:
-        road(town & currentTown, town & nextTown, int distance, bool bridge);
+        road(string townOneString, string townTwoString, int distance, bool bridge);
+
+        string getTownOne();
+        string getTownTwo();
+
+        void setTownOnePointer(town* theTown);
+        void setTownTwoPointer(town* theTown);
+
 
 public:
-        string getCurrentTown();
-
-        string getNextTown();
 
 private:
         int _distance;
         bool _bridge;
-        town &  _currentTown;
-        town &  _nextTown;
+        string _townOneString;
+        string _townTwoString;
+        town * _townOne;
+        town * _townTwo;
 
 };

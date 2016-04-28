@@ -49,7 +49,7 @@ int main()
       {
         cin >> townInput;
         cout << "towninput:" << townInput << endl;
-        theGraph.addTown(regionCapital, false);
+        theGraph.addTown(townInput, false);
       }
     }
 
@@ -70,5 +70,9 @@ int main()
       cout << "roadBridgeBool" << roadBridgeBool << endl;
       theGraph.addRoad(roadT1, roadT2, roadDist, roadBridgeBool);
     }
+    //theGraph.connectRoadsTowns();
+
+    cout << "TESTING" << endl;
+    theGraph.printTest();
   }
 }
