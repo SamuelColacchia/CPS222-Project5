@@ -12,7 +12,7 @@ void graph::addTown(string name, bool capital)
 
 }
 
-void graph::addRoad(string currentTown, string nextTown, int ditance, bool bridge)
+void graph::addRoad(town & currentTown, town & nextTown, int ditance, bool bridge)
 {
   road theRoad(currentTown, nextTown, ditance, bridge);
   _roadVector.insert(_roadVector.begin(), theRoad);

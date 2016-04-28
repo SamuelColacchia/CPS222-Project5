@@ -21,7 +21,7 @@ public:
 private:
         int _distance;
         bool _bridge;
-        string  _currentTown;
-        string  _nextTown;
+        town &  _currentTown;
+        town &  _nextTown;
 
 };

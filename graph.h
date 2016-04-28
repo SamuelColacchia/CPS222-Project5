@@ -15,7 +15,7 @@ public:
         graph();
 
         void addTown(string name, bool capital);
-        void addRoad(string currentTown, string nextTown, int ditance, bool bridge);
+        void addRoad(town & currentTown, town & nextTown, int ditance, bool bridge);
         void printRoads();
 
 private:

@@ -1,7 +1,7 @@
 #include "road.h"
 
 
-road::road(string currentTown, string nextTown, int distance, bool bridge)
+road::road(town & currentTown, town & nextTown, int distance, bool bridge)
 :_currentTown(currentTown), _nextTown(nextTown), _distance(distance), _bridge(bridge)
 {
 }
