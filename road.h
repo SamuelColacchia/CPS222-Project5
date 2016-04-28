@@ -6,10 +6,12 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+class town;
+
 class road {
 
 public:
-        road(string currentTown, string nextTown, int distance, bool bridge);
+        road(town & currentTown, town & nextTown, int distance, bool bridge);
 
 public:
         string getCurrentTown();

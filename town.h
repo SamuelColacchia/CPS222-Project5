@@ -9,6 +9,7 @@ using std::endl;
 class town {
 public:
         town(string name, bool capital);
+        getTown(string townName, town theTown);
 
 private:
         string _name;
