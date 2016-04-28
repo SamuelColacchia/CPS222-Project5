@@ -15,8 +15,10 @@ public:
         graph();
 
         void addTown(string name, bool capital);
-        void addRoad(string currentTown, string nextTown, int ditance, bool bridge);
-        void printRoads();
+        void addRoad(string townOneString, string townTwoString, int distance, bool bridge);
+        void printTest();
+
+        void connectRoadsTowns();
 
 private:
         vector <road> _roadVector;

@@ -6,20 +6,28 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+class town;
+
 class road {
 
 public:
-        road(string currentTown, string nextTown, int distance, bool bridge);
+        road(string townOneString, string townTwoString, int distance, bool bridge);
+
+        string getTownOne();
+        string getTownTwo();
+
+        void setTownOnePointer(town* theTown);
+        void setTownTwoPointer(town* theTown);
+
 
 public:
-        string getCurrentTown();
-
-        string getNextTown();
 
 private:
         int _distance;
         bool _bridge;
-        string  _currentTown;
-        string  _nextTown;
+        string _townOneString;
+        string _townTwoString;
+        town * _townOne;
+        town * _townTwo;
 
 };
