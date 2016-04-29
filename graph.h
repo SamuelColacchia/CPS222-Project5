@@ -1,5 +1,6 @@
 #include <fstream>
 #include <vector>
+#include <queue>
 
 #include "town.h"
 #include "road.h"
@@ -19,6 +20,7 @@ public:
         void printTest();
 
         void connectRoadsTowns();
+        void bfs();
 
 private:
         vector <road> _roadVector;
