@@ -17,6 +17,10 @@ int road::getDistance()
   return _distance;
 }
 
+bool road::checkBridge(){
+  return _bridge;
+}
+
 string road::getTownTwo()
 {
   return _townTwoString;

@@ -16,6 +16,7 @@ public:
         string getTownOne();
         string getTownTwo();
         int getDistance();
+        bool checkBridge();
 
         void setTownOnePointer(town* theTown);
         void setTownTwoPointer(town* theTown);

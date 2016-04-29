@@ -14,6 +14,9 @@ string town::getTownName()
   return _name;
 }
 
+bool town::checkCapital(){
+  return _capital;
+}
 void town::addRoadPointer(road * theRoad)
 {
   _conRoadVector.push_back(theRoad);
