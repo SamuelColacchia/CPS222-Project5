@@ -12,6 +12,10 @@ string road::getTownOne()
   return _townOneString;
 }
 
+int road::getDistance()
+{
+  return _distance;
+}
 
 string road::getTownTwo()
 {

@@ -74,5 +74,7 @@ int main()
 
     cout << "TESTING" << endl;
     theGraph.printTest();
+    std::cout << " " << std::endl;
+    theGraph.bfs();
   }
 }
