@@ -82,7 +82,18 @@ void graph::bfs()
         while (!toVisit.empty())
         {
                 int current = toVisit.front(); toVisit.pop();
-                //cout << _townVector[current].getTownName(); <<endl;
+                string currentCity = _townVector[current].getTownName();
+                cout << currentCity <<endl;
+                int k = 0;
+                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+                {
+                        if(currentCity == roadIt->getTownOne()) {
+                                cout << roadIt->getTownTwo() << " " << roadIt->getDistance()<< endl;
+                        }
+
+                }
+
+
                 for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
                 {
                         string townOne = roadIt->getTownOne();
