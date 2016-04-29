@@ -8,6 +8,8 @@
 
 using std::ifstream;
 using std::vector;
+using std::queue;
+
 
 
 class graph

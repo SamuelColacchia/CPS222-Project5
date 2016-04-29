@@ -66,28 +66,43 @@ void graph::printTest()
 }
 
 
-void graph::bfs(int start){
+void graph::bfs()
+{
 
-        string TownOne;
-        string TownTwo;
-
+        vector<road>::iterator roadIt;
         bool scheduled [ _townVector.size() ];
         for (int i = 0; i <  _townVector.size(); i++) {
-                scheduled[i] = false
+                scheduled[i] = false;
         }
 
         queue < int > toVisit;
-        toVisit.push(start);
-        scheduled[start] = true
+        toVisit.push(0);
+        scheduled[0] = true;
 
-        while (! toVisit.empty())
+        while (!toVisit.empty())
         {
-                 int current = toVisit.front(); toVisit.pop()
-                 cout<< _townVector[current].getTownName();<<endl;
-                 for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-                 {
-                         TownOne = roadIt->getTownOne();
-                 }
+                int current = toVisit.front(); toVisit.pop();
+                //cout << _townVector[current].getTownName(); <<endl;
+                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+                {
+                        string townOne = roadIt->getTownOne();
+                        int i =0;
+                        bool search = false;
+                        while(search == false) {
+                                if(townOne ==_townVector[i].getTownName()) {
+                                        search = true;
+                                }
+                                else{
+                                        i++;
+                                }
+                        }
+                        if (!scheduled[i])
+                        {
+                                toVisit.push(i);
+                                scheduled[i] = true;
+                        }
+
+                }
 
         }
 
