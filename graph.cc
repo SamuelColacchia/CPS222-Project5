@@ -126,9 +126,31 @@ void graph::bfs()
         }
 
 }
-// void graph::Kruskal(){
-//
-// }
+void graph::Kruskal(){
+        std::priority_queue<town> Q;
+        vector<int> distance;
+        vector <town>::iterator it;
+        vector<road>::iterator roadIt;
+
+        for (it = _townVector.begin(); it != _townVector.end(); it++)
+        {
+                if(it->checkCapital() == true){
+                        string capital = it->getTownName();
+                }
+        }
+
+
+	for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
+		distance.push_back(roadIt->getDistance());
+	}
+
+        distance[_roadVector.front()] = 0;
+        //Q.push(startNode);
+
+
+
+
+}
 
 
 // May add this at some point

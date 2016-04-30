@@ -1,6 +1,9 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <fstream>
+#include <functional>
+#include <climits>
 
 #include "town.h"
 #include "road.h"
@@ -23,6 +26,7 @@ public:
 
         void connectRoadsTowns();
         void bfs();
+        void Kruskal();
 
 private:
         vector <road> _roadVector;
