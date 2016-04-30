@@ -68,23 +68,29 @@ void graph::printTest()
 
 void graph::bfs()
 {
-
+        //createa vector iterator for the roads
+        //and a bool array, then set the entire array to false
         vector<road>::iterator roadIt;
         bool scheduled [ _townVector.size() ];
         for (int i = 0; i <  _townVector.size(); i++) {
                 scheduled[i] = false;
         }
-
+        //create a queueand push the first number interation and set the first city
+        // in schedruled to true
         queue < int > toVisit;
         toVisit.push(0);
         scheduled[0] = true;
 
         while (!toVisit.empty())
         {
+                //get the number to the first town in the queue
                 int current = toVisit.front(); toVisit.pop();
+                //get the name of that city using the city array
                 string currentCity = _townVector[current].getTownName();
+                //print the city name
                 cout << currentCity <<endl;
                 int k = 0;
+                //then print out all the towns connected to it
                 for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
                 {
                         if(currentCity == roadIt->getTownOne()) {
@@ -93,12 +99,14 @@ void graph::bfs()
 
                 }
 
-
+                //go through all the roads
                 for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
                 {
+                        //get the names of town one
                         string townOne = roadIt->getTownOne();
                         int i =0;
                         bool search = false;
+                        //find the town in the array of towns
                         while(search == false) {
                                 if(townOne ==_townVector[i].getTownName()) {
                                         search = true;
@@ -107,6 +115,8 @@ void graph::bfs()
                                         i++;
                                 }
                         }
+                        //sif first time visited set the position of that city to true in
+                        //the visited array and push it to toVisist
                         if (!scheduled[i])
                         {
                                 toVisit.push(i);
@@ -118,7 +128,9 @@ void graph::bfs()
         }
 
 }
+void graph::Kruskal(){
 
+}
 
 
 // May add this at some point
