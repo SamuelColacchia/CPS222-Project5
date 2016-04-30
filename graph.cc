@@ -7,7 +7,6 @@ graph::graph()
 
 void graph::addTown(string name, bool capital)
 {
-
         town theTown(name, capital);
         _townVector.push_back(theTown);
 }
@@ -16,7 +15,6 @@ void graph::addTown(string name, bool capital)
 void graph::addRoad(string townOneString, string townTwoString, int distance, bool bridge)
 {
         road theRoad(townOneString, townTwoString, distance, bridge);
-
         _roadVector.push_back(theRoad);
 }
 
@@ -128,9 +126,9 @@ void graph::bfs()
         }
 
 }
-void graph::Kruskal(){
-
-}
+// void graph::Kruskal(){
+//
+// }
 
 
 // May add this at some point

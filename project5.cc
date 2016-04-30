@@ -14,12 +14,8 @@ char cinCheck;
 
 int main()
 {
-  graph theGraph;
-
   while (true)
   {
-    cout << "(#TOWNS #ROADS)" << endl;
-
     cin >> cinCheck;
 
     if (cin.eof())
@@ -31,24 +27,27 @@ int main()
       cin.unget();
     }
 
+
+    graph theGraph;
+    cout << "(#TOWNS #ROADS)" << endl;
     cin >> numTowns;
     cin >> numRoads;
 
-    cout << "towns:" << numTowns << endl;
-    cout << "roads:" << numRoads << endl;
+    // cout << "towns:" << numTowns << endl;
+    // cout << "roads:" << numRoads << endl;
 
     for (int loopNumTowns = 0; loopNumTowns < numTowns; loopNumTowns++)
     {
       if (loopNumTowns == 0)
       {
         cin >> regionCapital;
-        cout << "regionCapital:" << regionCapital << endl;
+        // cout << "regionCapital:" << regionCapital << endl;
         theGraph.addTown(regionCapital, true);
       }
       else
       {
         cin >> townInput;
-        cout << "towninput:" << townInput << endl;
+        // cout << "towninput:" << townInput << endl;
         theGraph.addTown(townInput, false);
       }
     }
@@ -56,7 +55,7 @@ int main()
     for (int loopNumRoads = 0; loopNumRoads < numRoads; loopNumRoads++)
     {
       cin >> roadT1 >> roadT2 >> roadBridge >> roadDist;
-      cout << "roadT1:" << roadT1 << " roadT2:" << roadT2 << " roadBridge:" << roadBridge << " roadDist:" << roadDist << endl;
+      // cout << "roadT1:" << roadT1 << " roadT2:" << roadT2 << " roadBridge:" << roadBridge << " roadDist:" << roadDist << endl;
 
       if ((roadBridge == "b") || (roadBridge == "B"))
       {
@@ -67,14 +66,11 @@ int main()
         roadBridgeBool = false;
       }
 
-      cout << "roadBridgeBool" << roadBridgeBool << endl;
+      // cout << "roadBridgeBool" << roadBridgeBool << endl;
       theGraph.addRoad(roadT1, roadT2, roadDist, roadBridgeBool);
     }
-    //theGraph.connectRoadsTowns();
+    theGraph.connectRoadsTowns();
 
-    cout << "TESTING" << endl;
-    theGraph.printTest();
-    std::cout << " " << std::endl;
     theGraph.bfs();
   }
 }
