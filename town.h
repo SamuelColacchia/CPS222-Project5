@@ -18,6 +18,8 @@ public:
         string getTownName();
 
         void addRoadPointer(road * theRoad);
+        bool checkCapital();
+
 
 
 private:

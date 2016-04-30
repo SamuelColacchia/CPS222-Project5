@@ -1,5 +1,6 @@
 #include <fstream>
 #include <vector>
+#include <queue>
 
 #include "town.h"
 #include "road.h"
@@ -7,6 +8,8 @@
 
 using std::ifstream;
 using std::vector;
+using std::queue;
+
 
 
 class graph
@@ -19,6 +22,7 @@ public:
         void printTest();
 
         void connectRoadsTowns();
+        void bfs();
 
 private:
         vector <road> _roadVector;
