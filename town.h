@@ -10,6 +10,10 @@ using std::vector;
 
 class road;
 
+
+/*
+*
+*/
 class town {
 public:
         town(string name, bool capital);

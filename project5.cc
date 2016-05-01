@@ -1,3 +1,14 @@
+/*
+* project5.cc
+*
+* Main program for cps222 project 5
+* Driver to read in formated town and road data
+* Then display relevant information to the user
+*
+* Copyright (c) 2016 - Matthew Felgate & Samuel Colacchia
+*
+*/
+
 #include "graph.h"
 
 int numTowns;
@@ -12,7 +23,7 @@ int roadDist;
 
 char cinCheck;
 
-int main()
+int main(int argc, char * argv[])
 {
   while (true)
   {
