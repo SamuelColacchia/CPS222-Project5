@@ -11,6 +11,14 @@
 
 #include "graph.h"
 
+
+/*
+* Declaring variables
+*
+* These variables are primarly used for getting the input data from cin 
+*
+*/
+
 int numTowns;
 int numRoads;
 string townInput;
