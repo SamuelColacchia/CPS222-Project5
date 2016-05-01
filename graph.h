@@ -12,7 +12,7 @@
 using std::ifstream;
 using std::vector;
 using std::queue;
-
+using namespace std;
 
 
 class graph

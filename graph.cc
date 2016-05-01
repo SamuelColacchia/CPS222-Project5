@@ -127,25 +127,64 @@ void graph::bfs()
 
 }
 void graph::Kruskal(){
-        std::priority_queue<town> Q;
-        vector<int> distance;
+
+        vector<string> Q;
+        vector<int>d;
+
+        bool scheduled [ _townVector.size() ];
+        for (int i = 0; i <  _townVector.size(); i++) {
+                scheduled[i] = false;
+        }
+
         vector <town>::iterator it;
         vector<road>::iterator roadIt;
 
+
+        for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
+                d.push(1000);
+        }
+
+        int i = 0;
         for (it = _townVector.begin(); it != _townVector.end(); it++)
         {
-                if(it->checkCapital() == true){
-                        string capital = it->getTownName();
+                Q.push(_townVector.getTownName());
+                if(it->checkCapital() == true) {
+                        string currentTown = it->getTownName();
+                        scheduled[i] = true;
+                        d[i]=0;
+
                 }
+                else{
+                        i++;
+                }
+
         }
 
 
-	for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
-		distance.push_back(roadIt->getDistance());
-	}
 
-        distance[_roadVector.front()] = 0;
-        //Q.push(startNode);
+        while(!Q.empty()) {
+
+                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+                {
+                        //get the names of town one
+                        int u = 1000;
+                        string townOne = roadIt->getTownOne();
+                        string townTwwo = roadIt->getTownTwo();
+                        if(townOne == currentTown || townTwwo == currentTown ) {
+                                if(roadIt->getDistance()<u){
+                                        u = roadIt->getDistance();
+                                }
+                                q.erase(i);
+
+                        }
+
+
+                }
+
+        }
+
+
+
 
 
 
