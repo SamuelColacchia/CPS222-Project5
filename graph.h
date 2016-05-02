@@ -24,6 +24,8 @@ public:
         void connectRoadsTowns();
         void bfs();
 
+        void roadUpgrade();
+
 private:
         vector <road> _roadVector;
         vector <town> _townVector;
