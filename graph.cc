@@ -4,7 +4,15 @@ graph::graph()
 {
 }
 
-
+/**
+* Add a town to this graph
+*
+* @param string name : the name of the town
+* @param bool capitial : boolean to declare if this town is the capital for this graph
+*
+* @description : Given the inputed parameters create a town object then addes the object to
+* the town vector containter.
+*/
 void graph::addTown(string name, bool capital)
 {
   town theTown(name, capital);
@@ -12,7 +20,17 @@ void graph::addTown(string name, bool capital)
   _townVector.push_back(theTown);
 }
 
-
+/**
+* Add a road to this graph
+*
+* @param string townOneString : name of the town on one side of the road
+* @param string townTwoString : name of the town on the other side of the road
+* @param int distance : the length of the road
+* @param bool brigde : boolean to declare if this road is a bridge
+*
+* @description : Given the inputed paramters creates a road object then addes the object to
+* the road vector container.
+*/
 void graph::addRoad(string townOneString, string townTwoString, int distance, bool bridge)
 {
   road theRoad(townOneString, townTwoString, distance, bridge);
@@ -20,8 +38,13 @@ void graph::addRoad(string townOneString, string townTwoString, int distance, bo
   _roadVector.push_back(theRoad);
 }
 
-
-//Loop through the vectors connecting all roads and town
+/**
+* Function to connect roads and towns
+*
+* @description : Works through the roadVector and then works to link roads and towns
+* using pointers. Sets the town one and two pointers in the road to point to the town
+* object on both sides of the road. Adds a pointer to all the roads to a vector in the town object.
+*/
 void graph::connectRoadsTowns()
 {
   string TownOne;
