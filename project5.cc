@@ -72,5 +72,7 @@ int main()
     theGraph.connectRoadsTowns();
 
     theGraph.bfs();
+    theGraph.dijkstraMethod();
+
   }
 }

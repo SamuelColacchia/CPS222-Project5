@@ -1,6 +1,7 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <stack>
 #include <fstream>
 #include <functional>
 #include <climits>
@@ -12,6 +13,7 @@
 using std::ifstream;
 using std::vector;
 using std::queue;
+using std::stack;
 using namespace std;
 
 
@@ -26,7 +28,7 @@ public:
 
         void connectRoadsTowns();
         void bfs();
-        void Kruskal();
+        void dijkstraMethod();
 
 private:
         vector <road> _roadVector;

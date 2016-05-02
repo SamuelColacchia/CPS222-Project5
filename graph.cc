@@ -126,62 +126,84 @@ void graph::bfs()
         }
 
 }
-void graph::Kruskal(){
+void graph::dijkstraMethod(){
 
-        vector<string> Q;
-        vector<int>d;
+        queue<int>distance;
+        stack<string>townName;
+        queue<string>path;
+        queue<string>targets;
 
-        bool scheduled [ _townVector.size() ];
-        for (int i = 0; i <  _townVector.size(); i++) {
-                scheduled[i] = false;
-        }
+
+        string currentTown;
+        int u;
 
         vector <town>::iterator it;
         vector<road>::iterator roadIt;
 
-
-        for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
-                d.push(1000);
-        }
-
-        int i = 0;
         for (it = _townVector.begin(); it != _townVector.end(); it++)
         {
-                Q.push(_townVector.getTownName());
                 if(it->checkCapital() == true) {
-                        string currentTown = it->getTownName();
-                        scheduled[i] = true;
-                        d[i]=0;
-
+                        currentTown = it->getTownName();
                 }
                 else{
-                        i++;
+                        targets.push(it->getTownName());
                 }
-
         }
 
+        cout<<"dijkstraMethod"<<endl;
+        while(!targets.empty()) {
 
+                while(currentTown != targets.front()) {
 
-        while(!Q.empty()) {
+                        path.push(currentTown);
 
-                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-                {
-                        //get the names of town one
-                        int u = 1000;
-                        string townOne = roadIt->getTownOne();
-                        string townTwwo = roadIt->getTownTwo();
-                        if(townOne == currentTown || townTwwo == currentTown ) {
-                                if(roadIt->getDistance()<u){
-                                        u = roadIt->getDistance();
+                        for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+                        {
+                                //get the names of town one
+                                u = 1000;
+                                string townOne = roadIt->getTownOne();
+                                string townTwo = roadIt->getTownTwo();
+                                if(townOne == currentTown || townTwo == currentTown ) {
+                                        if(roadIt->getDistance()<u) {
+
+                                                u = roadIt->getDistance();
+
+                                                if(townOne == currentTown) {
+                                                        townName.push(roadIt->getTownTwo());
+                                                }
+
+                                                else if(townTwo == currentTown) {
+                                                        townName.push(roadIt->getTownOne());
+                                                }
+                                        }
+                                        std::cout << "/* check1 */" << std::endl;
+
                                 }
-                                q.erase(i);
+
+
 
                         }
 
+                        currentTown = townName.top();
+
+                        while(!townName.empty()) {
+                                townName.pop();
+                        }
+                        distance.push(u);
+
+                        std::cout << "/* check2 */" << std::endl;
+
 
                 }
-
+                while(!path.empty()) {
+                        cout<<path.front()<< " " <<distance.front()<<endl;
+                        path.pop();
+                        distance.pop();
+                }
+                targets.pop();
+                std::cout << "/* check3 */" << std::endl;
         }
+
 
 
 
