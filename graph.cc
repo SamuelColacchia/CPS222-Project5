@@ -133,7 +133,7 @@ void graph::dijkstraMethod(){
         queue<int>distance;
         stack<string>townName;
         queue<string>path;
-        queue<string>targets;
+        stack<string>targets;
 
 
         string currentTown;
@@ -155,9 +155,11 @@ void graph::dijkstraMethod(){
         cout<<"dijkstraMethod"<<endl;
         while(!targets.empty()) {
 
-                while(targets.front() != currentTown) {
+                path.push(currentTown);
 
-                        path.push(currentTown);
+                while(targets.top() != currentTown) {
+
+
 
                         for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
                         {
@@ -172,15 +174,13 @@ void graph::dijkstraMethod(){
 
                                                 if(townOne == currentTown) {
                                                         townName.push(roadIt->getTownTwo());
-                                                        break;
                                                 }
 
                                                 else if(townTwo == currentTown) {
                                                         townName.push(roadIt->getTownOne());
-                                                        break;
+                                                        std::cout << "/* check1 */" << roadIt->getTownOne()<< std::endl;
                                                 }
                                         }
-                                        std::cout << "/* check1 */" << std::endl;
 
                                 }
 
@@ -205,6 +205,8 @@ void graph::dijkstraMethod(){
                         distance.pop();
                 }
                 targets.pop();
+
+
                 std::cout << "/* check3 */" << std::endl;
         }
 
