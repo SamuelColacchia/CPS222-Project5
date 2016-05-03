@@ -110,7 +110,7 @@ void graph::bfs()
                                         search = true;
                                 }
                                 else{
-
+                                        i++
                                 }
                         }
                         //sif first time visited set the position of that city to true in
@@ -127,18 +127,28 @@ void graph::bfs()
 
 }
 
+void graph::smallestPath(int D[], std::list <int> toVisits){
+        int smallestPath = toVisit.front();
+        for(int i = 0; i < _townVector.size();; i++) {
+                if(D[smallestPath]>D[i]) {
+                        smallestPath == i;
+                }
 
+        }
+        return smallestPath;
+}
+}
 void graph::dijkstraMethod(){
 
         int prev[ _townVector.size() ];
 
+        vector<road>::iterator roadIt;
+        std::list<int>toVisit;
 
-        std::priority_queue<int>toVisit;
-
-        int D[_numberOfTowns _townVector.size() ];
+        int D[ _townVector.size() ];
 
         for (int i = 0; i <  _townVector.size(); i++) {
-                dist[i] = 100000000;
+                D[i] = 100000000;
                 toVisit.push_back(i);
         }
 
@@ -146,22 +156,64 @@ void graph::dijkstraMethod(){
 
 
         while (!toVisit.empty()) {
-                //u ← vertex in Q with min dist[u]
-                toVisit.remove(smallestIndex);
+                int smallestDistance = smallestPath(D, toVisit);
+                toVisit.remove(smallestDistance);
 
                 for(roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
-                        //alt ← dist[u] + length(u, v)
-                        //if alt < dist[v]:
-                                //dist[v] ← alt
-                                //prev[v] ← u
+
+                        TownOne = roadIt->getTownOne();
+                        TownTwo = roadIt->getTownTwo();
+                        int i = 0;
+
+                        if(TownOne == _townVector[smallestDistance].getTownName()) {
+
+                                        bool search = false;
+                                        //find the town in the array of towns
+                                        while(search == false) {
+                                                if(townOne ==_townVector[i].getTownName()) {
+                                                        search = true;
+                                                }
+                                                else{
+                                                        i++
+                                                }
+                                        }
+
+                        }
+                        else if( TownTwo == _townVector[smallestDistance].getTownName()) {
+
+                                        int i =0;
+                                        bool search = false;
+                                        //find the town in the array of towns
+                                        while(search == false) {
+                                                if(townOne ==_townVector[i].getTownName()) {
+                                                        search = true;
+                                                }
+                                                else{
+                                                        i++
+                                                }
+                                        }
+
+                        }
+
+
+                        int newD = D[smallestDistance] + roadIt->getDistance();
+                        if (newD < D[i]) {
+                                D[i] = newDist;
+                                prev[i] = smallestIndex;
+                        }
                 }
         }
+        for (int i = 1; i < _townVector[].size(); i++) {
+        cout << _townVector[0] << "TO :" << _townVector[i]<<endl
 
-        //return dist[], prev[
+
+
+        }
+
 }
 
 
-}
+
 
 
 // May add this at some point
