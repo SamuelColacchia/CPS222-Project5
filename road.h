@@ -13,6 +13,7 @@ class road {
 public:
         road(string townOneString, string townTwoString, int distance, bool bridge);
 
+        ~road();
         string getTownOne();
         string getTownTwo();
         int getDistance();

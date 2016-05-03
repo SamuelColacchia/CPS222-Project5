@@ -6,6 +6,10 @@ road::road(string townOneString, string townTwoString, int distance, bool bridge
 {
 }
 
+// road::~road()
+// {}
+
+
 /**
 * Get the Town one name
 *

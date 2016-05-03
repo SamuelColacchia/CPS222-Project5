@@ -1,6 +1,7 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <list>
 
 #include "town.h"
 #include "road.h"
@@ -9,7 +10,7 @@
 using std::ifstream;
 using std::vector;
 using std::queue;
-
+using std::list;
 
 
 class graph
@@ -25,6 +26,10 @@ public:
         void bfs();
 
         void roadUpgrade();
+        bool townInVector(vector<town> townVector, string townName);
+
+        void removeTownFromVector(vector<town> *townVector, string townName);
+        void removeRoadFromVector(vector<road> *roadVector, road theRoad);
 
 private:
         vector <road> _roadVector;

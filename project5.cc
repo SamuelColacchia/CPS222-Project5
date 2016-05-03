@@ -15,7 +15,7 @@
 /*
 * Declaring variables
 *
-* These variables are primarly used for getting the input data from cin 
+* These variables are primarly used for getting the input data from cin
 *
 */
 
@@ -90,6 +90,9 @@ int main(int argc, char * argv[])
     }
     theGraph.connectRoadsTowns();
 
-    theGraph.bfs();
+
+    // theGraph.bfs();
+
+    theGraph.roadUpgrade();
   }
 }
