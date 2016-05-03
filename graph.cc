@@ -110,7 +110,7 @@ void graph::bfs()
                                         search = true;
                                 }
                                 else{
-                                        i++
+                                        i++;
                                 }
                         }
                         //sif first time visited set the position of that city to true in
