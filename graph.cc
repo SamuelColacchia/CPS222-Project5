@@ -126,6 +126,8 @@ void graph::bfs()
         }
 
 }
+
+
 void graph::dijkstraMethod(){
 
         queue<int>distance;
@@ -153,7 +155,7 @@ void graph::dijkstraMethod(){
         cout<<"dijkstraMethod"<<endl;
         while(!targets.empty()) {
 
-                while(currentTown != targets.front()) {
+                while(targets.front() != currentTown) {
 
                         path.push(currentTown);
 
@@ -170,10 +172,12 @@ void graph::dijkstraMethod(){
 
                                                 if(townOne == currentTown) {
                                                         townName.push(roadIt->getTownTwo());
+                                                        break;
                                                 }
 
                                                 else if(townTwo == currentTown) {
                                                         townName.push(roadIt->getTownOne());
+                                                        break;
                                                 }
                                         }
                                         std::cout << "/* check1 */" << std::endl;
@@ -203,13 +207,6 @@ void graph::dijkstraMethod(){
                 targets.pop();
                 std::cout << "/* check3 */" << std::endl;
         }
-
-
-
-
-
-
-
 
 }
 
