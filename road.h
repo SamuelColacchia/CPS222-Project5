@@ -22,6 +22,9 @@ public:
         void setTownOnePointer(town* theTown);
         void setTownTwoPointer(town* theTown);
 
+        town* getTownOnePointer();
+        town* getTownTwoPointer();
+
 
 public:
 

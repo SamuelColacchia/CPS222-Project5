@@ -161,16 +161,89 @@ void graph::roadUpgrade()
 {
   vector<road>::iterator roadIt;
 
-  vector<road> roadVectorCopy;
-  vector<town> townVectorCopy;
-
-  townVectorCopy = _townVector;
-  roadVectorCopy = _roadVector;
+  vector<road *>::iterator roadPIt;
+  vector<town *>::iterator townIt;
 
   vector<road> finalVector;
+  vector<town *> visitedTowns;
+
+  int currentSmallestRoadNum;
+
+  road currentSmallestRoad = *_roadVector.begin();
+
+  //Get to a starting point in this case the smallest road.
+  for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+  {
+    if (currentSmallestRoad.getDistance() > roadIt->getDistance())
+    {
+      currentSmallestRoad = *roadIt;
+    }
+  }
+  cout << currentSmallestRoad.getDistance() << endl;
+
+  //Then add the first set of data
+  finalVector.push_back(currentSmallestRoad);
+  visitedTowns.push_back(currentSmallestRoad.getTownOnePointer());
+  visitedTowns.push_back(currentSmallestRoad.getTownTwoPointer());
 
 
-  road currentSmallestRoad = *(roadVectorCopy.begin());
+  while (visitedTowns.size() < _townVector.size())
+  {
+    currentSmallestRoadNum = std::numeric_limits<int>::max();
+    for (townIt = visitedTowns.begin(); townIt != visitedTowns.end(); townIt++)
+    {
+
+
+      cout << endl;
+      cout << "current Town working:" << (*townIt)->getTownName() << endl;
+
+      for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
+      {
+        cout << "\t canidate Towns" << endl;
+        cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
+        cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
+
+        if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
+            !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
+        {
+          if ((*townIt)->getConRoadVector()[roadPos]->getDistance() < currentSmallestRoadNum)
+          {
+            cout << " \t Town Picked:" << endl;
+            cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
+            cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
+            currentSmallestRoad = (*(*townIt)->getConRoadVector()[roadPos]);
+            currentSmallestRoadNum = currentSmallestRoad.getDistance();
+
+          }
+        }
+      }
+    }
+
+    cout << "one:" << currentSmallestRoad.getTownOne() << "->" <<"two:" << currentSmallestRoad.getTownTwo()  << "||" <<  currentSmallestRoad.getDistance() << endl;
+    cout << endl;
+    cout << endl;
+
+    finalVector.push_back(currentSmallestRoad);
+    if (!townInVector(visitedTowns, currentSmallestRoad.getTownOne()))
+    {
+      visitedTowns.push_back(currentSmallestRoad.getTownOnePointer());
+    }
+
+    if (!townInVector(visitedTowns, currentSmallestRoad.getTownTwo()))
+    {
+      visitedTowns.push_back(currentSmallestRoad.getTownTwoPointer());
+    }
+  }
+
+
+
+  cout << "shortest path:" << endl;
+  for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
+  {
+    cout << roadIt->getTownOne() << "->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
+  }
+
+
 
 //   while (townVectorCopy.size() != 0)
 //   {
@@ -241,13 +314,15 @@ void graph::roadUpgrade()
 }
 
 
-bool graph::townInVector(vector<town> townVector, string townName)
+bool graph::townInVector(vector<town *> townVector, string townName)
 {
-  vector<town>::iterator townIt;
+  vector<town *>::iterator townIt;
+
+
 
   for (townIt = townVector.begin(); townIt != townVector.end(); townIt++)
   {
-    if (townIt->getTownName() == townName)
+    if ((*townIt)->getTownName() == townName)
     {
       return true;
     }
