@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <list>
 #include <fstream>
 #include <functional>
 #include <utility>
@@ -12,6 +13,7 @@
 
 using std::ifstream;
 using std::vector;
+using std::list;
 using std::queue;
 using std::stack;
 using namespace std;
@@ -29,6 +31,7 @@ public:
         void connectRoadsTowns();
         void bfs();
         void dijkstraMethod();
+        int smallestPath(int D[], list <int> toVisits);
 
 private:
         vector <road> _roadVector;

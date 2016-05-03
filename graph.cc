@@ -127,11 +127,11 @@ void graph::bfs()
 
 }
 
-void graph::smallestPath(int D[], std::list <int> toVisits){
+int graph::smallestPath(int D[], list <int> toVisits){
         int smallestPath = toVisit.front();
-        for(int i = 0; i < _townVector.size();; i++) {
+        for(int i = 0; i < _townVector.size(); i++) {
                 if(D[smallestPath]>D[i]) {
-                        smallestPath == i;
+                        smallestPath = i;
                 }
 
         }
@@ -143,7 +143,7 @@ void graph::dijkstraMethod(){
         int prev[ _townVector.size() ];
 
         vector<road>::iterator roadIt;
-        std::list<int>toVisit;
+        list<int>toVisit;
 
         int D[ _townVector.size() ];
 
