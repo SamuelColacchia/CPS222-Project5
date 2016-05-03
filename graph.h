@@ -5,6 +5,7 @@
 #include <fstream>
 #include <functional>
 #include <climits>
+#include <map>
 
 #include "town.h"
 #include "road.h"

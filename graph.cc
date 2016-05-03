@@ -132,54 +132,91 @@ void graph::dijkstraMethod(){
 
         queue<int>distance;
         stack<string>townName;
-        queue<string>path;
+        vector<string>path;
         stack<string>targets;
 
 
+        bool scheduled [ _townVector.size() ];
+        for (int i = 0; i <  _townVector.size(); i++) {
+                scheduled[i] = false;
+        }
+        string capital;
         string currentTown;
         int u;
+        int i;
 
-        vector <town>::iterator it;
+        vector<town>::iterator it;
         vector<road>::iterator roadIt;
 
         for (it = _townVector.begin(); it != _townVector.end(); it++)
         {
                 if(it->checkCapital() == true) {
-                        currentTown = it->getTownName();
+                        capital = it->getTownName();
+                        scheduled[i] = true;
                 }
                 else{
                         targets.push(it->getTownName());
                 }
+                i++;
+
         }
 
         cout<<"dijkstraMethod"<<endl;
         while(!targets.empty()) {
+                currentTown = capital;
 
-                path.push(currentTown);
 
                 while(targets.top() != currentTown) {
+                        std::cout << "target" << targets.top() << std::endl;
 
-
-
+                        u = 1000;
                         for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
                         {
                                 //get the names of town one
-                                u = 1000;
                                 string townOne = roadIt->getTownOne();
                                 string townTwo = roadIt->getTownTwo();
-                                if(townOne == currentTown || townTwo == currentTown ) {
-                                        if(roadIt->getDistance()<u) {
+                                int roadDistance = roadIt->getDistance();
 
-                                                u = roadIt->getDistance();
+                                int i = 0;
+                                bool search = false;
+                                while(search == false) {
+                                        if(townTwo ==_townVector[i].getTownName()) {
+                                                search = true;
+                                        }
+                                        else{
+                                                i++;
+                                        }
+                                }
 
-                                                if(townOne == currentTown) {
-                                                        townName.push(roadIt->getTownTwo());
-                                                }
+                                int k = 0;
+                                search = false;
+                                while(search == false) {
+                                        if(townOne ==_townVector[k].getTownName()) {
+                                                search = true;
+                                        }
+                                        else{
+                                                k++;
+                                        }
+                                }
 
-                                                else if(townTwo == currentTown) {
-                                                        townName.push(roadIt->getTownOne());
-                                                        std::cout << "/* check1 */" << roadIt->getTownOne()<< std::endl;
-                                                }
+
+                                if(townOne == currentTown && scheduled[i] == false ) {
+                                        if(roadDistance < u) {
+
+                                                u = roadDistance;
+                                                townName.push(roadIt->getTownTwo());
+                                                std::cout << "Move to: "<< roadIt->getTownTwo()<< std::endl;
+
+                                        }
+
+                                }
+                                else if(townTwo == currentTown && scheduled[k] == false){
+                                        if(roadDistance < u ) {
+
+                                                u = roadDistance;
+                                                townName.push(roadIt->getTownOne());
+                                                std::cout << "move to: " << roadIt->getTownOne()<< std::endl;
+
                                         }
 
                                 }
@@ -188,21 +225,22 @@ void graph::dijkstraMethod(){
 
                         }
 
+                        path.push_back(currentTown);
                         currentTown = townName.top();
 
                         while(!townName.empty()) {
                                 townName.pop();
                         }
+
                         distance.push(u);
+
 
                         std::cout << "/* check2 */" << std::endl;
 
 
                 }
-                while(!path.empty()) {
-                        cout<<path.front()<< " " <<distance.front()<<endl;
-                        path.pop();
-                        distance.pop();
+                for(int i = 0; i < path.size(); i++) {
+                        cout << path[i] <<endl;
                 }
                 targets.pop();
 
