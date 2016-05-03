@@ -172,72 +172,72 @@ void graph::roadUpgrade()
 
   road currentSmallestRoad = *(roadVectorCopy.begin());
 
-  while (townVectorCopy.size() != 0)
-  {
-    // cout << "town vector copy size" << townVectorCopy.size() << endl;
-    for (roadIt = roadVectorCopy.begin(); roadIt != roadVectorCopy.end(); roadIt++)
-    {
-      if (currentSmallestRoad.getDistance() > roadIt->getDistance())
-      {
-        // cout << "townVectorSize:" << townVectorCopy.size() << endl;
-        currentSmallestRoad = *roadIt;
-
-        if (townInVector(townVectorCopy, currentSmallestRoad.getTownTwo()))
-        {
-          cout << "Smallest road" << currentSmallestRoad.getDistance() << endl;
-          continue;
-        }
-        else if (townInVector(townVectorCopy, currentSmallestRoad.getTownTwo()))
-        {
-          cout << "Smallest road" << currentSmallestRoad.getDistance() << endl;
-          continue;
-        }
-        // else
-        // {
-        //   cout << "road removed early" << endl;
-        //   removeRoadFromVector(&roadVectorCopy, currentSmallestRoad);
-        //   currentSmallestRoad = *(roadVectorCopy.begin());
-        // }
-      }
-      cout << "Smallest road" << currentSmallestRoad.getDistance() << endl;
-    }
-    // cout << endl;
-    // cout << endl;
-    // cout << "town 1 remove:" << currentSmallestRoad.getTownOne() << endl;
-    // cout << "town 2 remove:" << currentSmallestRoad.getTownTwo() << endl;
-    // cout << endl;
-    // cout << "loop 1" << endl;
-    if (townInVector(townVectorCopy, currentSmallestRoad.getTownOne()))
-    {
-      // cout << "loop 1 - in" << endl;
-      // cout << townVectorCopy.size() << endl;
-
-
-      removeTownFromVector(&townVectorCopy, currentSmallestRoad.getTownOne());
-    }
-
-    // cout << endl;
-    // cout << "loop 2" << endl;
-
-    if (townInVector(townVectorCopy, currentSmallestRoad.getTownTwo()))
-    {
-      // cout << "loop 2 - in" << endl;
-      // cout << townVectorCopy.size() << endl;
-
-
-      removeTownFromVector(&townVectorCopy, currentSmallestRoad.getTownTwo());
-    }
-    finalVector.push_back(currentSmallestRoad);
-    removeRoadFromVector(&roadVectorCopy, currentSmallestRoad);
-    cout << "road removed" << endl;
-    currentSmallestRoad = *(roadVectorCopy.begin());
-  }
-
-  cout << "shortest path:" << endl;
-  for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
-  {
-    cout << roadIt->getTownOne() << "->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
-  }
+//   while (townVectorCopy.size() != 0)
+//   {
+//     // cout << "town vector copy size" << townVectorCopy.size() << endl;
+//     for (roadIt = roadVectorCopy.begin(); roadIt != roadVectorCopy.end(); roadIt++)
+//     {
+//       if (currentSmallestRoad.getDistance() > roadIt->getDistance())
+//       {
+//         // cout << "townVectorSize:" << townVectorCopy.size() << endl;
+//         currentSmallestRoad = *roadIt;
+//
+//         if (townInVector(townVectorCopy, currentSmallestRoad.getTownTwo()))
+//         {
+//           cout << "Smallest road" << currentSmallestRoad.getDistance() << endl;
+//           continue;
+//         }
+//         else if (townInVector(townVectorCopy, currentSmallestRoad.getTownTwo()))
+//         {
+//           cout << "Smallest road" << currentSmallestRoad.getDistance() << endl;
+//           continue;
+//         }
+//         // else
+//         // {
+//         //   cout << "road removed early" << endl;
+//         //   removeRoadFromVector(&roadVectorCopy, currentSmallestRoad);
+//         //   currentSmallestRoad = *(roadVectorCopy.begin());
+//         // }
+//       }
+//       cout << "Smallest road" << currentSmallestRoad.getDistance() << endl;
+//     }
+//     // cout << endl;
+//     // cout << endl;
+//     // cout << "town 1 remove:" << currentSmallestRoad.getTownOne() << endl;
+//     // cout << "town 2 remove:" << currentSmallestRoad.getTownTwo() << endl;
+//     // cout << endl;
+//     // cout << "loop 1" << endl;
+//     if (townInVector(townVectorCopy, currentSmallestRoad.getTownOne()))
+//     {
+//       // cout << "loop 1 - in" << endl;
+//       // cout << townVectorCopy.size() << endl;
+//
+//
+//       removeTownFromVector(&townVectorCopy, currentSmallestRoad.getTownOne());
+//     }
+//
+//     // cout << endl;
+//     // cout << "loop 2" << endl;
+//
+//     if (townInVector(townVectorCopy, currentSmallestRoad.getTownTwo()))
+//     {
+//       // cout << "loop 2 - in" << endl;
+//       // cout << townVectorCopy.size() << endl;
+//
+//
+//       removeTownFromVector(&townVectorCopy, currentSmallestRoad.getTownTwo());
+//     }
+//     finalVector.push_back(currentSmallestRoad);
+//     removeRoadFromVector(&roadVectorCopy, currentSmallestRoad);
+//     cout << "road removed" << endl;
+//     currentSmallestRoad = *(roadVectorCopy.begin());
+//   }
+//
+//   cout << "shortest path:" << endl;
+//   for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
+//   {
+//     cout << roadIt->getTownOne() << "->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
+//   }
 }
 
 
