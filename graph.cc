@@ -110,7 +110,7 @@ void graph::bfs()
                                         search = true;
                                 }
                                 else{
-                                        i++;
+
                                 }
                         }
                         //sif first time visited set the position of that city to true in
@@ -130,123 +130,36 @@ void graph::bfs()
 
 void graph::dijkstraMethod(){
 
-        queue<int>distance;
-        stack<string>townName;
-        vector<string>path;
-        stack<string>targets;
+        int prev[ _townVector.size() ];
 
 
-        bool scheduled [ _townVector.size() ];
+        std::priority_queue<int>toVisit;
+
+        int D[_numberOfTowns _townVector.size() ];
+
         for (int i = 0; i <  _townVector.size(); i++) {
-                scheduled[i] = false;
-        }
-        string capital;
-        string currentTown;
-        int u;
-        int i;
-
-        vector<town>::iterator it;
-        vector<road>::iterator roadIt;
-
-        for (it = _townVector.begin(); it != _townVector.end(); it++)
-        {
-                if(it->checkCapital() == true) {
-                        capital = it->getTownName();
-                        scheduled[i] = true;
-                }
-                else{
-                        targets.push(it->getTownName());
-                }
-                i++;
-
+                dist[i] = 100000000;
+                toVisit.push_back(i);
         }
 
-        cout<<"dijkstraMethod"<<endl;
-        while(!targets.empty()) {
-                currentTown = capital;
+        D[0] = 0;
 
 
-                while(targets.top() != currentTown) {
-                        std::cout << "target" << targets.top() << std::endl;
+        while (!toVisit.empty()) {
+                //u ← vertex in Q with min dist[u]
+                toVisit.remove(smallestIndex);
 
-                        u = 1000;
-                        for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-                        {
-                                //get the names of town one
-                                string townOne = roadIt->getTownOne();
-                                string townTwo = roadIt->getTownTwo();
-                                int roadDistance = roadIt->getDistance();
-
-                                int i = 0;
-                                bool search = false;
-                                while(search == false) {
-                                        if(townTwo ==_townVector[i].getTownName()) {
-                                                search = true;
-                                        }
-                                        else{
-                                                i++;
-                                        }
-                                }
-
-                                int k = 0;
-                                search = false;
-                                while(search == false) {
-                                        if(townOne ==_townVector[k].getTownName()) {
-                                                search = true;
-                                        }
-                                        else{
-                                                k++;
-                                        }
-                                }
-
-
-                                if(townOne == currentTown && scheduled[i] == false ) {
-                                        if(roadDistance < u) {
-
-                                                u = roadDistance;
-                                                townName.push(roadIt->getTownTwo());
-                                                std::cout << "Move to: "<< roadIt->getTownTwo()<< std::endl;
-
-                                        }
-
-                                }
-                                else if(townTwo == currentTown && scheduled[k] == false){
-                                        if(roadDistance < u ) {
-
-                                                u = roadDistance;
-                                                townName.push(roadIt->getTownOne());
-                                                std::cout << "move to: " << roadIt->getTownOne()<< std::endl;
-
-                                        }
-
-                                }
-
-
-
-                        }
-
-                        path.push_back(currentTown);
-                        currentTown = townName.top();
-
-                        while(!townName.empty()) {
-                                townName.pop();
-                        }
-
-                        distance.push(u);
-
-
-                        std::cout << "/* check2 */" << std::endl;
-
-
+                for(roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
+                        //alt ← dist[u] + length(u, v)
+                        //if alt < dist[v]:
+                                //dist[v] ← alt
+                                //prev[v] ← u
                 }
-                for(int i = 0; i < path.size(); i++) {
-                        cout << path[i] <<endl;
-                }
-                targets.pop();
-
-
-                std::cout << "/* check3 */" << std::endl;
         }
+
+        //return dist[], prev[
+}
+
 
 }
 

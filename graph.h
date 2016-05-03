@@ -4,8 +4,7 @@
 #include <stack>
 #include <fstream>
 #include <functional>
-#include <climits>
-#include <map>
+#include <utility>
 
 #include "town.h"
 #include "road.h"
@@ -35,4 +34,17 @@ private:
         vector <road> _roadVector;
         vector <town> _townVector;
 
+};
+
+class Verticies
+{
+public:
+	string name;
+	int distance;
+
+	Toast(string name, int distance)
+		: name(_town), distance(_distance)
+	{
+
+	}
 };
