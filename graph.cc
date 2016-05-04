@@ -133,7 +133,7 @@ int graph::smallestPath(int D[], list <int> toVisit){
         int smallestPath = toVisit.front();
         if (toVisit.size() > 1) {
                 for(int i = 0; i < _townVector.size(); i++) {
-                        if(D[smallestPath]>D[i]) {
+                        if(D[smallestPath]<D[i]) {
                                 //found this on stack overflow
                                 bool found = (std::find(toVisit.begin(), toVisit.end(), i)
                                               != toVisit.end());
@@ -174,33 +174,32 @@ void graph::dijkstraMethod(){
 
                         townOne = roadIt->getTownOne();
                         townTwo = roadIt->getTownTwo();
-                        int i = 0;
+                        int k = 0;
 
                         if(townOne == _townVector[smallestDistance].getTownName()) {
 
                                 search = false;
                                 //find the town in the array of towns
                                 while(search == false) {
-                                        if(townOne ==_townVector[i].getTownName()) {
+                                        if(townOne ==_townVector[k].getTownName()) {
                                                 search = true;
                                         }
                                         else{
-                                                i++;
+                                                k++;
                                         }
                                 }
 
                         }
                         else if( townTwo == _townVector[smallestDistance].getTownName()) {
 
-                                int i =0;
                                 search = false;
                                 //find the town in the array of towns
                                 while(search == false) {
-                                        if(townTwo ==_townVector[i].getTownName()) {
+                                        if(townTwo ==_townVector[k].getTownName()) {
                                                 search = true;
                                         }
                                         else{
-                                                i++;
+                                                k++;
                                         }
                                 }
 
@@ -208,9 +207,9 @@ void graph::dijkstraMethod(){
 
 
                         int newD = D[smallestDistance] + roadIt->getDistance();
-                        if (newD < D[i]) {
-                                D[i] = newD;
-                                prev[i] = smallestDistance;
+                        if (newD < D[k]) {
+                                D[k] = newD;
+                                prev[k] = smallestDistance;
                         }
                 }
         }
