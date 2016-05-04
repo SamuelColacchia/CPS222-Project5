@@ -168,6 +168,7 @@ void graph::dijkstraMethod(){
         while (!toVisit.empty()) {
                 int smallestDistance = smallestPath(D, toVisit);
                 toVisit.remove(smallestDistance);
+                std::cout << toVisit.size() << std::endl;
 
                 for(roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++) {
 
