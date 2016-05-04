@@ -216,9 +216,14 @@ void graph::dijkstraMethod(){
                 }
         }
         for (int i = 1; i < _townVector.size(); i++) {
+                int nextCity;
                 cout << "      " << "The shortest route from " + _townVector[0].getTownName();
-                cout << " to " + _townVector[i].getTownName() + " is " << D[i];
-                cout << " mi:" << std::endl;
+                cout << " to " + _townVector[i].getTownName() + " is " << D[i]  << " mi:" << endl;
+                nextCity = prev[i];
+                cout << _townVector[nextCity].getTownName() << endl;
+
+
+
 
         }
 }
