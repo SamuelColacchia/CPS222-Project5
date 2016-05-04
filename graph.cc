@@ -128,12 +128,13 @@ void graph::bfs()
 }
 
 
-//jordon helped me(matt) with this
+//jordon helped me(matt) with this, and stack overflow :)
 int graph::smallestPath(int D[], list <int> toVisit){
         int smallestPath = toVisit.front();
         if (toVisit.size() > 1) {
                 for(int i = 0; i < _townVector.size(); i++) {
                         if(D[smallestPath]>D[i]) {
+                                //found this on stack overflow
                                 bool found = (std::find(toVisit.begin(), toVisit.end(), i)
                                               != toVisit.end());
                                 if (found) {
@@ -213,13 +214,13 @@ void graph::dijkstraMethod(){
                 }
         }
         for (int i = 1; i < _townVector.size(); i++) {
-                cout << _townVector[0].getTownName() << "TO :" << _townVector[i].getTownName()<<endl;
-
-
+                cout << "      " << "The shortest route from " + _townVector[0].getTownName();
+                cout << " to " + _townVector[i].getTownName() + " is " << D[i];
+                cout << " mi:" << std::endl;
 
         }
-
 }
+
 
 
 
