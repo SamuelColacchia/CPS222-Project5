@@ -1,8 +1,12 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <stack>
 #include <list>
-#include <limits>
+#include <fstream>
+#include <functional>
+#include <utility>
+#include <algorithm>
 
 #include "town.h"
 #include "road.h"
@@ -10,10 +14,11 @@
 
 using std::ifstream;
 using std::vector;
+using std::list;
 using std::queue;
 using std::list;
 using std::cerr;
-
+using std::stack;
 
 
 class graph
@@ -27,6 +32,8 @@ public:
 
         void connectRoadsTowns();
         void bfs();
+        void dijkstraMethod();
+        int smallestPath(int D[], list <int> toVisits);
 
         void roadUpgrade();
         bool townInVector(vector<town*> townVector, string townName);

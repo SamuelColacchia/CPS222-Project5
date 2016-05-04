@@ -90,9 +90,9 @@ int main(int argc, char * argv[])
     }
     theGraph.connectRoadsTowns();
 
+    //theGraph.bfs();
+        theGraph.roadUpgrade();
+    theGraph.dijkstraMethod();
 
-    // theGraph.bfs();
-
-    theGraph.roadUpgrade();
   }
 }
