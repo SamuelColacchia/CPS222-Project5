@@ -13,6 +13,7 @@ class road {
 public:
         road(string townOneString, string townTwoString, int distance, bool bridge);
 
+        ~road();
         string getTownOne();
         string getTownTwo();
         int getDistance();
@@ -20,6 +21,9 @@ public:
 
         void setTownOnePointer(town* theTown);
         void setTownTwoPointer(town* theTown);
+
+        town* getTownOnePointer();
+        town* getTownTwoPointer();
 
 
 public:

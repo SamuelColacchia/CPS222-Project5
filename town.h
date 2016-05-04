@@ -17,12 +17,14 @@ class road;
 class town {
 public:
         town(string name, bool capital);
-        bool getTown(string townName, town theTown);
+        // town getTown();
 
         string getTownName();
 
         void addRoadPointer(road * theRoad);
         bool checkCapital();
+
+        vector<road*> getConRoadVector();
 
 
 

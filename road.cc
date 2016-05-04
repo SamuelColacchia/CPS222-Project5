@@ -6,6 +6,10 @@ road::road(string townOneString, string townTwoString, int distance, bool bridge
 {
 }
 
+road::~road()
+{}
+
+
 /**
 * Get the Town one name
 *
@@ -68,4 +72,14 @@ void road::setTownOnePointer(town* theTown)
 void road::setTownTwoPointer(town* theTown)
 {
   _townTwo = theTown;
+}
+
+town* road::getTownOnePointer()
+{
+  return _townOne;
+}
+
+town* road::getTownTwoPointer()
+{
+  return _townTwo;
 }
