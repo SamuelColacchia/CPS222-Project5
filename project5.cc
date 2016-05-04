@@ -90,8 +90,10 @@ int main(int argc, char *argv[])
     }
     theGraph.connectRoadsTowns();
 
-    //theGraph.bfs();
-    theGraph.roadUpgrade();
+    theGraph.bfs();
+    cout << endl;
     theGraph.dijkstraMethod();
+    cout << endl;
+    theGraph.roadUpgrade();
   }
 }

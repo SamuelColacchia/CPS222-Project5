@@ -7,6 +7,7 @@
 #include <functional>
 #include <utility>
 #include <algorithm>
+#include <limits>
 
 #include "town.h"
 #include "road.h"
@@ -44,5 +45,6 @@ public:
 private:
         vector <road> _roadVector;
         vector <town> _townVector;
+        static const bool _debug = false;
 
 };

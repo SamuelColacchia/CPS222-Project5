@@ -199,7 +199,11 @@ void graph::roadUpgrade()
       currentSmallestRoad = *roadIt;
     }
   }
-  cout << currentSmallestRoad.getDistance() << endl;
+
+  if (_debug)
+  {
+    cout << currentSmallestRoad.getDistance() << endl;
+  }
 
   /**
    * After completing step 1 add the first/starting road to are final vector
@@ -217,16 +221,21 @@ void graph::roadUpgrade()
     //@step2.1
     for (townIt = visitedTowns.begin(); townIt != visitedTowns.end(); townIt++)
     {
-      cout << endl;
-      cout << "current Town working:" << (*townIt)->getTownName() << endl;
+      if (_debug)
+      {
+        cout << endl;
+        cout << "current Town working:" << (*townIt)->getTownName() << endl;
+      }
 
       //@step2.2
       for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
       {
-        cout << "\t canidate Towns" << endl;
-        cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
-        cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
-
+        if (_debug)
+        {
+          cout << "\t canidate Towns" << endl;
+          cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
+          cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
+        }
         //@step2.3
         if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
             !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
@@ -234,19 +243,24 @@ void graph::roadUpgrade()
           //@step2.4
           if ((*townIt)->getConRoadVector()[roadPos]->getDistance() < currentSmallestRoadNum)
           {
-            cout << " \t Town Picked:" << endl;
-            cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
-            cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
+            if (_debug)
+            {
+              cout << " \t Town Picked:" << endl;
+              cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
+              cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
+            }
             currentSmallestRoad = (*(*townIt)->getConRoadVector()[roadPos]);
             currentSmallestRoadNum = currentSmallestRoad.getDistance();
           }
         }
       }
     }
-
-    cout << "one:" << currentSmallestRoad.getTownOne() << "->" << "two:" << currentSmallestRoad.getTownTwo() << "||" << currentSmallestRoad.getDistance() << endl;
-    cout << endl;
-    cout << endl;
+    if (_debug)
+    {
+      cout << "one:" << currentSmallestRoad.getTownOne() << "->" << "two:" << currentSmallestRoad.getTownTwo() << "||" << currentSmallestRoad.getDistance() << endl;
+      cout << endl;
+      cout << endl;
+    }
 
     /**
      * Add the current smallest Road to the final vector
@@ -275,36 +289,11 @@ void graph::roadUpgrade()
    */
   for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
   {
-    cout << roadIt->getTownOne() << "->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
+    cout << roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
   }
 }
 
 
-/**
- * Function to check if a given town name is in a vector of type town
- *
- * @param vector<town *> townVector : the given vector to check
- * @param string townName : the name of the town we want to check
- *
- * @return bool : True if the townName is in the vector and False if it does not
- *
- * @description : loops through the vector checking each element if that townName is
- * is the name we are looking for.
- *
- */
-bool graph::townInVector(vector<town *> townVector, string townName)
-{
-  vector<town *>::iterator townIt;
-
-  for (townIt = townVector.begin(); townIt != townVector.end(); townIt++)
-  {
-    if ((*townIt)->getTownName() == townName)
-    {
-      return true;
-    }
-  }
-  return false;
-}
 
 
 //jordon helped me(matt) with this, and stack overflow :)
@@ -356,8 +345,11 @@ void graph::dijkstraMethod()
   {
     int smallestDistance = smallestPath(D, toVisit);
     toVisit.remove(smallestDistance);
-    std::cout << toVisit.size() << std::endl;
 
+    if (_debug)
+    {
+      std::cout << toVisit.size() << std::endl;
+    }
     for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
     {
       townOne = roadIt->getTownOne();
@@ -399,8 +391,12 @@ void graph::dijkstraMethod()
 
 
       int newD = D[smallestDistance] + roadIt->getDistance();
-      cout << newD << std::endl;
-      cout << D[k] << std::endl;
+      if (_debug)
+      {
+        cout << newD << std::endl;
+        cout << D[k] << std::endl;
+      }
+
       if (newD < D[k])
       {
         D[k] = newD;
@@ -417,6 +413,34 @@ void graph::dijkstraMethod()
     cout << _townVector[nextCity].getTownName() << endl;
   }
 }
+
+
+/**
+ * Function to check if a given town name is in a vector of type town
+ *
+ * @param vector<town *> townVector : the given vector to check
+ * @param string townName : the name of the town we want to check
+ *
+ * @return bool : True if the townName is in the vector and False if it does not
+ *
+ * @description : loops through the vector checking each element if that townName is
+ * is the name we are looking for.
+ *
+ */
+bool graph::townInVector(vector<town *> townVector, string townName)
+{
+  vector<town *>::iterator townIt;
+
+  for (townIt = townVector.begin(); townIt != townVector.end(); townIt++)
+  {
+    if ((*townIt)->getTownName() == townName)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 
 
 //NOTE: Not current used
