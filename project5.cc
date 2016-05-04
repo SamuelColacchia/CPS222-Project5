@@ -1,23 +1,23 @@
 /*
-* project5.cc
-*
-* Main program for cps222 project 5
-* Driver to read in formated town and road data
-* Then display relevant information to the user
-*
-* Copyright (c) 2016 - Matthew Felgate & Samuel Colacchia
-*
-*/
+ * project5.cc
+ *
+ * Main program for cps222 project 5
+ * Driver to read in formated town and road data
+ * Then display relevant information to the user
+ *
+ * Copyright (c) 2016 - Matthew Felgate & Samuel Colacchia
+ *
+ */
 
 #include "graph.h"
 
 
 /*
-* Declaring variables
-*
-* These variables are primarly used for getting the input data from cin
-*
-*/
+ * Declaring variables
+ *
+ * These variables are primarly used for getting the input data from cin
+ *
+ */
 
 int numTowns;
 int numRoads;
@@ -31,7 +31,7 @@ int roadDist;
 
 char cinCheck;
 
-int main(int argc, char * argv[])
+int main(int argc, char *argv[])
 {
   while (true)
   {
@@ -91,8 +91,7 @@ int main(int argc, char * argv[])
     theGraph.connectRoadsTowns();
 
     //theGraph.bfs();
-        theGraph.roadUpgrade();
+    theGraph.roadUpgrade();
     theGraph.dijkstraMethod();
-
   }
 }
