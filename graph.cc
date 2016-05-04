@@ -168,7 +168,12 @@ void graph::bfs()
 * @step1 - description : This step could be considered unnesary since to peform this algorithm you just
 * need to pick any point
 *
-* @step2 :
+* @step2 : Keep going while our visitedTowns vector size is smaller then the _townVector size
+* @step2.1 : Loop through all our visitedTowns, this is done to ensure we only add roads that connect to
+* our known towns
+* @step2.2 : Then ask our towns for all the roads that connect to it
+* @step2.3 : Looking for a road that adds a unknown town to our known towns vector
+* @step2.4 : Each time looking for the smallest road
 *
 */
 
@@ -265,8 +270,6 @@ void graph::roadUpgrade()
     }
   }
 
-
-
   cout << "shortest path:" << endl;
 
   /**
@@ -276,7 +279,6 @@ void graph::roadUpgrade()
   {
     cout << roadIt->getTownOne() << "->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
   }
-
 }
 
 /**
