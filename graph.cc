@@ -127,13 +127,20 @@ void graph::bfs()
 
 }
 
+
+//jordon helped me(matt) with this
 int graph::smallestPath(int D[], list <int> toVisit){
         int smallestPath = toVisit.front();
-        for(int i = 0; i < _townVector.size(); i++) {
-                if(D[smallestPath]>D[i]) {
-                        smallestPath = i;
+        if (toVisit.size() > 1) {
+                for(int i = 0; i < _townVector.size(); i++) {
+                        if(D[smallestPath]>D[i]) {
+                                bool found = (std::find(toVisit.begin(), toVisit.end(), i)
+                                              != toVisit.end());
+                                if (found) {
+                                        smallestPath = i;
+                                }
+                        }
                 }
-
         }
         return smallestPath;
 }
@@ -169,31 +176,31 @@ void graph::dijkstraMethod(){
 
                         if(townOne == _townVector[smallestDistance].getTownName()) {
 
-                                        search = false;
-                                        //find the town in the array of towns
-                                        while(search == false) {
-                                                if(townOne ==_townVector[i].getTownName()) {
-                                                        search = true;
-                                                }
-                                                else{
-                                                        i++;
-                                                }
+                                search = false;
+                                //find the town in the array of towns
+                                while(search == false) {
+                                        if(townOne ==_townVector[i].getTownName()) {
+                                                search = true;
                                         }
+                                        else{
+                                                i++;
+                                        }
+                                }
 
                         }
                         else if( townTwo == _townVector[smallestDistance].getTownName()) {
 
-                                        int i =0;
-                                        search = false;
-                                        //find the town in the array of towns
-                                        while(search == false) {
-                                                if(townTwo ==_townVector[i].getTownName()) {
-                                                        search = true;
-                                                }
-                                                else{
-                                                        i++;
-                                                }
+                                int i =0;
+                                search = false;
+                                //find the town in the array of towns
+                                while(search == false) {
+                                        if(townTwo ==_townVector[i].getTownName()) {
+                                                search = true;
                                         }
+                                        else{
+                                                i++;
+                                        }
+                                }
 
                         }
 
@@ -206,7 +213,7 @@ void graph::dijkstraMethod(){
                 }
         }
         for (int i = 1; i < _townVector.size(); i++) {
-        cout << _townVector[0].getTownName() << "TO :" << _townVector[i].getTownName()<<endl;
+                cout << _townVector[0].getTownName() << "TO :" << _townVector[i].getTownName()<<endl;
 
 
 

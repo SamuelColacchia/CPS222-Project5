@@ -6,6 +6,7 @@
 #include <fstream>
 #include <functional>
 #include <utility>
+#include <algorithm>
 
 #include "town.h"
 #include "road.h"
