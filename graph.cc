@@ -223,9 +223,11 @@ void graph::roadUpgrade()
         cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
         cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
 
+        //@step2.3
         if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
             !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
         {
+          //@step2.4
           if ((*townIt)->getConRoadVector()[roadPos]->getDistance() < currentSmallestRoadNum)
           {
             cout << " \t Town Picked:" << endl;
@@ -243,7 +245,15 @@ void graph::roadUpgrade()
     cout << endl;
     cout << endl;
 
+    /**
+    * Add the current smallest Road to the final vector
+    */
     finalVector.push_back(currentSmallestRoad);
+
+    /**
+    * Check to see if the road on each side is in our vistedTowns if not add it else do nothing.
+    * We do not want to add duplicates to this vector since we use to to see if we are done.
+    */
     if (!townInVector(visitedTowns, currentSmallestRoad.getTownOne()))
     {
       visitedTowns.push_back(currentSmallestRoad.getTownOnePointer());
@@ -258,6 +268,10 @@ void graph::roadUpgrade()
 
 
   cout << "shortest path:" << endl;
+
+  /**
+  * Simple loop, working through i final vector and printing out the roads we used to connect the graph
+  */
   for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
   {
     cout << roadIt->getTownOne() << "->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
@@ -265,12 +279,21 @@ void graph::roadUpgrade()
 
 }
 
-
+/**
+* Function to check if a given town name is in a vector of type town
+*
+* @param vector<town *> townVector : the given vector to check
+* @param string townName : the name of the town we want to check
+*
+* @return bool : True if the townName is in the vector and False if it does not
+*
+* @description : loops through the vector checking each element if that townName is
+* is the name we are looking for.
+*
+*/
 bool graph::townInVector(vector<town *> townVector, string townName)
 {
   vector<town *>::iterator townIt;
-
-
 
   for (townIt = townVector.begin(); townIt != townVector.end(); townIt++)
   {
@@ -282,7 +305,16 @@ bool graph::townInVector(vector<town *> townVector, string townName)
   return false;
 }
 
-
+//NOTE: Not current used
+/**
+* Attempts to remove a town from a given vector
+*
+* @param vector<town> *townVector : the given vector we want to remove from
+* @param string townName : the name of the town we want to remove
+*
+* @description : Loops through the vector and check to see if the given townName is in the vector
+* if so then we erase the item
+*/
 void graph::removeTownFromVector(vector<town> *townVector, string townName)
 {
   vector<town>::iterator townIt;
@@ -302,7 +334,16 @@ void graph::removeTownFromVector(vector<town> *townVector, string townName)
   }
 }
 
-
+//NOTE: Not current used
+/**
+* Attempts to remove a road from a given vector
+*
+* @param vector<road> *roadVector : the given vector we want to remove from
+* @param string theRoad : the name of the road we want to remove
+*
+* @description : Attempts to remove a road from a vector if both of its towns
+* match the towns of the input road
+*/
 void graph::removeRoadFromVector(vector<road> *roadVector, road theRoad)
 {
   vector<road>::iterator roadIt;
@@ -324,13 +365,3 @@ void graph::removeRoadFromVector(vector<road> *roadVector, road theRoad)
     }
   }
 }
-
-
-// void graph::Kruskal(){
-//
-// }
-
-
-// May add this at some point
-// void graph::iterate()
-// {}
