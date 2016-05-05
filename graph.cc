@@ -93,6 +93,7 @@ void graph::printTest()
 
 void graph::bfs()
 {
+  string bridge;
   //createa vector iterator for the roads
   //and a bool array, then set the entire array to false
   vector<road>::iterator roadIt;
@@ -115,17 +116,29 @@ void graph::bfs()
     //get the name of that city using the city array
     string currentCity = _townVector[current].getTownName();
     //print the city name
-    cout << currentCity << endl;
+    cout <<currentCity << endl;
     //then print out all the towns connected to it
     for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
     {
       if (currentCity == roadIt->getTownOne())
       {
-        cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance() << endl;
+        if(roadIt->checkBridge()){
+          bridge = "bridge";
+        }
+        else{
+          bridge = "road";
+        }
+        cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance()<< " mi via " << bridge << endl;
       }
       else if (currentCity == roadIt->getTownTwo())
       {
-        cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance() << endl;
+        if(roadIt->checkBridge()){
+          bridge = "bridge";
+        }
+        else{
+          bridge = "road";
+        }
+        cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance()<< " mi via " << bridge << endl;
       }
     }
 
@@ -190,7 +203,7 @@ void graph::bfs()
   deleted and selects the town with the small distance.
   this index is then returned
 */
-int graph::smallestPath(int distance[], list<int> toVisit)
+int graph::smallestPath(double distance[], list<int> toVisit)
 {
   //set smallestPath to the first index
   int smallestPath = toVisit.front();
@@ -229,14 +242,14 @@ void graph::dijkstraMethod()
   string townOne;
   string townTwo;
   bool search;
-  int distance[_townVector.size()];
+  double distance[_townVector.size()];
 
 
   //create a to visit list for each town and a distance array
   //where the distances are all set to a extremely high number
   for (int i = 0; i < _townVector.size(); i++)
   {
-    distance[i] = 10000000000000;
+    distance[i] = 1000000000;
     toVisit.push_back(i);
 
   }
@@ -303,7 +316,7 @@ void graph::dijkstraMethod()
 
       //set the new distance to the smallest town's distance plus the distance
       // to its neighbor
-      int newDistance = distance[smallestDistance] + roadIt->getDistance();
+      double newDistance = distance[smallestDistance] + roadIt->getDistance();
 
       if (_debug)
       {
@@ -337,13 +350,13 @@ void graph::dijkstraMethod()
       shortestPathTrace.push(_townVector[nextCity].getTownName());
     }
 
-    cout << "\n\tThe shortest route from " << _townVector[0].getTownName();
+    cout << "\nThe shortest route from " << _townVector[0].getTownName();
     cout << " to " << _townVector[i].getTownName() << " is " << distance[i] << " mi:" << endl;
 
     while (!shortestPathTrace.empty())
     {
-      //print out the back trace 
-      cout << "\t\t" << shortestPathTrace.top() << endl;
+      //print out the back trace
+      cout << "\t" << shortestPathTrace.top() << endl;
       shortestPathTrace.pop();
     }
   }
@@ -502,7 +515,7 @@ void graph::roadUpgrade()
    */
   for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
   {
-    cout << roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
+    cout <<"\t"<< roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
   }
 }
 
