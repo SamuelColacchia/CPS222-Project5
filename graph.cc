@@ -116,13 +116,16 @@ void graph::bfs()
     string currentCity = _townVector[current].getTownName();
     //print the city name
     cout << currentCity << endl;
-    int k = 0;
     //then print out all the towns connected to it
     for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
     {
       if (currentCity == roadIt->getTownOne())
       {
         cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance() << endl;
+      }
+      else if (currentCity == roadIt->getTownTwo())
+      {
+        cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance() << endl;
       }
     }
 
@@ -131,18 +134,42 @@ void graph::bfs()
     {
       //get the names of town one
       string townOne = roadIt->getTownOne();
+      string townTwo= roadIt->getTownTwo();
+
       int i = 0;
-      bool search = false;
-      //find the town in the array of towns
-      while (search == false)
+      bool search;
+
+
+      if (townOne == currentCity)
       {
-        if (townOne == _townVector[i].getTownName())
+        search = false;
+        //find the town in the array of towns
+        while (search == false)
         {
-          search = true;
+          if (townTwo == _townVector[i].getTownName())
+          {
+            search = true;
+          }
+          else
+          {
+            i++;
+          }
         }
-        else
+      }
+      else if (townTwo == currentCity)
+      {
+        search = false;
+        //find the town in the array of towns
+        while (search == false)
         {
-          i++;
+          if (townOne == _townVector[i].getTownName())
+          {
+            search = true;
+          }
+          else
+          {
+            i++;
+          }
         }
       }
       //sif first time visited set the position of that city to true in
