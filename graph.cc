@@ -297,10 +297,29 @@ void graph::dijkstraMethod()
   for (int i = 1; i < _townVector.size(); i++)
   {
     int nextCity;
-    cout << "      " << "The shortest route from " + _townVector[0].getTownName();
-    cout << " to " + _townVector[i].getTownName() + " is " << D[i] << " mi:" << endl;
-    nextCity = prev[i];
-    cout << _townVector[nextCity].getTownName() << endl;
+    cout << " \t The shortest route from " << _townVector[0].getTownName();
+    cout << " to " << _townVector[i].getTownName() << " is " << D[i] << " mi:" << endl;
+    cout << "length of town" << _townVector.size() << endl;
+
+
+
+      cout << "prev value:" << prev[0] << endl;
+            cout << "prev value:" << _townVector[prev[1]].getTownName() << endl;
+                  cout << "prev value:" << _townVector[prev[2]].getTownName() << endl;
+                        cout << "prev value:" << _townVector[prev[3]].getTownName() << endl;
+                              cout << "prev value:" << _townVector[prev[4]].getTownName() << endl;
+                                    cout << "prev value:" << _townVector[prev[5]].getTownName() << endl;
+                                          cout << "prev value:" << _townVector[prev[6]].getTownName() << endl;
+                                                cout << "prev value:" << _townVector[prev[7]].getTownName() << endl;
+                                                  cout << endl;
+                                                      cout << "prev value:" << prev[8] << endl;
+                                                            cout << "prev value:" << prev[9] << endl;
+                                                                  cout << "prev value:" << prev[10] << endl;
+
+
+
+
+    // cout << _townVector[nextCity].getTownName() << endl;
   }
 }
 
