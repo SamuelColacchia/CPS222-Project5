@@ -238,6 +238,7 @@ void graph::dijkstraMethod()
     {
       std::cout << toVisit.size() << std::endl;
     }
+    
     for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
     {
       townOne = roadIt->getTownOne();
@@ -279,6 +280,7 @@ void graph::dijkstraMethod()
 
 
       int newD = D[smallestDistance] + roadIt->getDistance();
+
       if (_debug)
       {
         cout << newD << std::endl;
@@ -503,6 +505,12 @@ void graph::bridgesGone()
       {
         for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
         {
+          if ()
+          {
+            cout << (*townIt)->getTownName() << "| number of roads" << (*townIt)->getConRoadVector().size() << endl;
+          }
+
+
           if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
               !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
           {
