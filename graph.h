@@ -43,6 +43,7 @@ public:
         void removeRoadFromVector(vector<road> *roadVector, road theRoad);
 
         void bridgesGone();
+        void townDestroyed();
 
 private:
         vector <road> _roadVector;

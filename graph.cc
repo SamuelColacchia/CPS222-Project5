@@ -16,9 +16,9 @@ graph::graph()
  */
 void graph::addTown(string name, bool capital)
 {
-        town theTown(name, capital);
+  town theTown(name, capital);
 
-        _townVector.push_back(theTown);
+  _townVector.push_back(theTown);
 }
 
 
@@ -35,9 +35,9 @@ void graph::addTown(string name, bool capital)
  */
 void graph::addRoad(string townOneString, string townTwoString, int distance, bool bridge)
 {
-        road theRoad(townOneString, townTwoString, distance, bridge);
+  road theRoad(townOneString, townTwoString, distance, bridge);
 
-        _roadVector.push_back(theRoad);
+  _roadVector.push_back(theRoad);
 }
 
 
@@ -50,270 +50,272 @@ void graph::addRoad(string townOneString, string townTwoString, int distance, bo
  */
 void graph::connectRoadsTowns()
 {
-        string TownOne;
-        string TownTwo;
+  string TownOne;
+  string TownTwo;
 
-        string currentTown;
+  string currentTown;
 
-        vector<road>::iterator roadIt;
-        vector<town>::iterator townIt;
-        for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-        {
-                TownOne = roadIt->getTownOne();
-                TownTwo = roadIt->getTownTwo();
+  vector<road>::iterator roadIt;
+  vector<town>::iterator townIt;
+  for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+  {
+    TownOne = roadIt->getTownOne();
+    TownTwo = roadIt->getTownTwo();
 
-                for (townIt = _townVector.begin(); townIt != _townVector.end(); townIt++)
-                {
-                        currentTown = townIt->getTownName();
+    for (townIt = _townVector.begin(); townIt != _townVector.end(); townIt++)
+    {
+      currentTown = townIt->getTownName();
 
-                        if (currentTown == TownOne)
-                        {
-                                roadIt->setTownOnePointer(&*townIt);
-                                townIt->addRoadPointer(&*roadIt);
-                        }
-                        else if (currentTown == TownTwo)
-                        {
-                                roadIt->setTownTwoPointer(&*townIt);
-                                townIt->addRoadPointer(&*roadIt);
-                        }
-                }
-        }
+      if (currentTown == TownOne)
+      {
+        roadIt->setTownOnePointer(&*townIt);
+        townIt->addRoadPointer(&*roadIt);
+      }
+      else if (currentTown == TownTwo)
+      {
+        roadIt->setTownTwoPointer(&*townIt);
+        townIt->addRoadPointer(&*roadIt);
+      }
+    }
+  }
 }
 
 
 void graph::printTest()
 {
-        vector<town>::iterator it;
-        for (it = _townVector.begin(); it != _townVector.end(); it++)
-        {
-                cout << it->getTownName() << endl;
-        }
+  vector<town>::iterator it;
+  for (it = _townVector.begin(); it != _townVector.end(); it++)
+  {
+    cout << it->getTownName() << endl;
+  }
 }
 
 
 void graph::bfs()
 {
-        //createa vector iterator for the roads
-        //and a bool array, then set the entire array to false
-        vector<road>::iterator roadIt;
-        bool scheduled [_townVector.size()];
-        for (int i = 0; i < _townVector.size(); i++)
+  //createa vector iterator for the roads
+  //and a bool array, then set the entire array to false
+  vector<road>::iterator roadIt;
+  bool scheduled [_townVector.size()];
+  for (int i = 0; i < _townVector.size(); i++)
+  {
+    scheduled[i] = false;
+  }
+  //create a queueand push the first number interation and set the first city
+  // in schedruled to true
+  queue<int> toVisit;
+  toVisit.push(0);
+  scheduled[0] = true;
+
+  while (!toVisit.empty())
+  {
+    //get the number to the first town in the queue
+    int current = toVisit.front();
+    toVisit.pop();
+    //get the name of that city using the city array
+    string currentCity = _townVector[current].getTownName();
+    //print the city name
+    cout << currentCity << endl;
+    //then print out all the towns connected to it
+    for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+    {
+      if (currentCity == roadIt->getTownOne())
+      {
+        cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance() << endl;
+      }
+      else if (currentCity == roadIt->getTownTwo())
+      {
+        cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance() << endl;
+      }
+    }
+
+    //go through all the roads
+    for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+    {
+      //get the names of town one
+      string townOne = roadIt->getTownOne();
+      string townTwo = roadIt->getTownTwo();
+
+      int i = 0;
+      bool search;
+
+
+      if (townOne == currentCity)
+      {
+        search = false;
+        //find the town in the array of towns
+        while (search == false)
         {
-                scheduled[i] = false;
+          if (townTwo == _townVector[i].getTownName())
+          {
+            search = true;
+          }
+          else
+          {
+            i++;
+          }
         }
-        //create a queueand push the first number interation and set the first city
-        // in schedruled to true
-        queue<int> toVisit;
-        toVisit.push(0);
-        scheduled[0] = true;
-
-        while (!toVisit.empty())
+      }
+      else if (townTwo == currentCity)
+      {
+        search = false;
+        //find the town in the array of towns
+        while (search == false)
         {
-                //get the number to the first town in the queue
-                int current = toVisit.front();
-                toVisit.pop();
-                //get the name of that city using the city array
-                string currentCity = _townVector[current].getTownName();
-                //print the city name
-                cout << currentCity << endl;
-                //then print out all the towns connected to it
-                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-                {
-                        if (currentCity == roadIt->getTownOne())
-                        {
-                                cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance() << endl;
-                        }
-                        else if (currentCity == roadIt->getTownTwo())
-                        {
-                                cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance() << endl;
-                        }
-                }
-
-                //go through all the roads
-                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-                {
-                        //get the names of town one
-                        string townOne = roadIt->getTownOne();
-                        string townTwo = roadIt->getTownTwo();
-
-                        int i = 0;
-                        bool search;
-
-
-                        if (townOne == currentCity)
-                        {
-                                search = false;
-                                //find the town in the array of towns
-                                while (search == false)
-                                {
-                                        if (townTwo == _townVector[i].getTownName())
-                                        {
-                                                search = true;
-                                        }
-                                        else
-                                        {
-                                                i++;
-                                        }
-                                }
-                        }
-                        else if (townTwo == currentCity)
-                        {
-                                search = false;
-                                //find the town in the array of towns
-                                while (search == false)
-                                {
-                                        if (townOne == _townVector[i].getTownName())
-                                        {
-                                                search = true;
-                                        }
-                                        else
-                                        {
-                                                i++;
-                                        }
-                                }
-                        }
-                        //sif first time visited set the position of that city to true in
-                        //the visited array and push it to toVisist
-                        if (!scheduled[i])
-                        {
-                                toVisit.push(i);
-                                scheduled[i] = true;
-                        }
-                }
+          if (townOne == _townVector[i].getTownName())
+          {
+            search = true;
+          }
+          else
+          {
+            i++;
+          }
         }
+      }
+      //sif first time visited set the position of that city to true in
+      //the visited array and push it to toVisist
+      if (!scheduled[i])
+      {
+        toVisit.push(i);
+        scheduled[i] = true;
+      }
+    }
+  }
 }
 
 
 //jordon helped me(matt) with this, and stack overflow :)
 int graph::smallestPath(int distance[], list<int> toVisit)
 {
-        int smallestPath = toVisit.front();
+  int smallestPath = toVisit.front();
 
-        if (toVisit.size() > 1)
+  if (toVisit.size() > 1)
+  {
+    for (int i = 0; i < _townVector.size(); i++)
+    {
+      if (distance[smallestPath] > distance[i])
+      {
+        //found this on stack overflow
+        bool found = (std::find(toVisit.begin(), toVisit.end(), i)
+                      != toVisit.end());
+        if (found)
         {
-                for (int i = 0; i < _townVector.size(); i++)
-                {
-                        if (distance[smallestPath] > distance[i])
-                        {
-                                //found this on stack overflow
-                                bool found = (std::find(toVisit.begin(), toVisit.end(), i)
-                                              != toVisit.end());
-                                if (found)
-                                {
-                                        smallestPath = i;
-                                }
-                        }
-                }
+          smallestPath = i;
         }
-        return smallestPath;
+      }
+    }
+  }
+  return smallestPath;
 }
 
 
 void graph::dijkstraMethod()
 {
-        int prevTown[_townVector.size()];
-        stack <string> shortestPathTrace;
+  int prevTown[_townVector.size()];
 
-        vector<road>::iterator roadIt;
-        list<int> toVisit;
-        string townOne;
-        string townTwo;
-        bool search;
-        int distance[_townVector.size()];
+  stack<string> shortestPathTrace;
 
-        for (int i = 0; i < _townVector.size(); i++)
+  vector<road>::iterator roadIt;
+  list<int> toVisit;
+  string townOne;
+  string townTwo;
+  bool search;
+  int distance[_townVector.size()];
+
+  for (int i = 0; i < _townVector.size(); i++)
+  {
+    distance[i] = 100000000;
+    toVisit.push_back(i);
+  }
+
+  distance[0] = 0;
+
+
+  while (!toVisit.empty())
+  {
+    int smallestDistance = smallestPath(distance, toVisit);
+    toVisit.remove(smallestDistance);
+
+    if (_debug)
+    {
+      std::cout << toVisit.size() << std::endl;
+    }
+
+    for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+    {
+      townOne = roadIt->getTownOne();
+      townTwo = roadIt->getTownTwo();
+      int k = 0;
+
+      if (townOne == _townVector[smallestDistance].getTownName())
+      {
+        search = false;
+        //find the town in the array of towns
+        while (search == false)
         {
-                distance[i] = 100000000;
-                toVisit.push_back(i);
+          if (townTwo == _townVector[k].getTownName())
+          {
+            search = true;
+          }
+          else
+          {
+            k++;
+          }
         }
-
-        distance[0] = 0;
-
-
-        while (!toVisit.empty())
+      }
+      else if (townTwo == _townVector[smallestDistance].getTownName())
+      {
+        search = false;
+        //find the town in the array of towns
+        while (search == false)
         {
-                int smallestDistance = smallestPath(distance, toVisit);
-                toVisit.remove(smallestDistance);
-
-                if (_debug)
-                {
-                        std::cout << toVisit.size() << std::endl;
-                }
-
-                for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-                {
-                        townOne = roadIt->getTownOne();
-                        townTwo = roadIt->getTownTwo();
-                        int k = 0;
-
-                        if (townOne == _townVector[smallestDistance].getTownName())
-                        {
-                                search = false;
-                                //find the town in the array of towns
-                                while (search == false)
-                                {
-                                        if (townTwo == _townVector[k].getTownName())
-                                        {
-                                                search = true;
-                                        }
-                                        else
-                                        {
-                                                k++;
-                                        }
-                                }
-                        }
-                        else if (townTwo == _townVector[smallestDistance].getTownName())
-                        {
-                                search = false;
-                                //find the town in the array of towns
-                                while (search == false)
-                                {
-                                        if (townOne == _townVector[k].getTownName())
-                                        {
-                                                search = true;
-                                        }
-                                        else
-                                        {
-                                                k++;
-                                        }
-                                }
-                        }
-
-
-                        int newDistance = distance[smallestDistance] + roadIt->getDistance();
-
-                        if (_debug)
-                        {
-                                cout << newDistance << std::endl;
-                                cout << distance[k] << std::endl;
-                        }
-
-                        if (newDistance < distance[k])
-                        {
-                                distance[k] = newDistance;
-                                prevTown[k] = smallestDistance;
-                        }
-                }
-
+          if (townOne == _townVector[k].getTownName())
+          {
+            search = true;
+          }
+          else
+          {
+            k++;
+          }
         }
-        for (int i = 1; i < _townVector.size(); i++)
-        {
-                int nextCity = i;
-                shortestPathTrace.push(_townVector[nextCity].getTownName());
+      }
 
-                while (_townVector[nextCity].getTownName() != _townVector[0].getTownName()) {
-                        nextCity = prevTown[nextCity];
-                        shortestPathTrace.push(_townVector[nextCity].getTownName());
-                }
 
-                cout << "\n\tThe shortest route from " << _townVector[0].getTownName();
-                cout << " to " << _townVector[i].getTownName() << " is " << distance[i] << " mi:" << endl;
+      int newDistance = distance[smallestDistance] + roadIt->getDistance();
 
-                while (!shortestPathTrace.empty()) {
-                        cout << "\t\t" << shortestPathTrace.top() << endl;
-                        shortestPathTrace.pop();
-                }
-        }
+      if (_debug)
+      {
+        cout << newDistance << std::endl;
+        cout << distance[k] << std::endl;
+      }
+
+      if (newDistance < distance[k])
+      {
+        distance[k] = newDistance;
+        prevTown[k] = smallestDistance;
+      }
+    }
+  }
+  for (int i = 1; i < _townVector.size(); i++)
+  {
+    int nextCity = i;
+    shortestPathTrace.push(_townVector[nextCity].getTownName());
+
+    while (_townVector[nextCity].getTownName() != _townVector[0].getTownName())
+    {
+      nextCity = prevTown[nextCity];
+      shortestPathTrace.push(_townVector[nextCity].getTownName());
+    }
+
+    cout << "\n\tThe shortest route from " << _townVector[0].getTownName();
+    cout << " to " << _townVector[i].getTownName() << " is " << distance[i] << " mi:" << endl;
+
+    while (!shortestPathTrace.empty())
+    {
+      cout << "\t\t" << shortestPathTrace.top() << endl;
+      shortestPathTrace.pop();
+    }
+  }
 }
 
 
@@ -341,129 +343,97 @@ void graph::dijkstraMethod()
 //TODO: Add a catch for no roads.
 void graph::roadUpgrade()
 {
-        vector<road>::iterator roadIt;
+  vector<road>::iterator roadIt;
 
-        vector<road *>::iterator roadPIt;
-        vector<town *>::iterator townIt;
+  vector<road *>::iterator roadPIt;
+  vector<town *>::iterator townIt;
 
-        vector<road> finalVector;
-        vector<town *> visitedTowns;
+  vector<road> finalVector;
+  vector<town *> visitedTowns;
 
-        int currentSmallestRoadNum;
+  int currentSmallestRoadNum;
 
-        road currentSmallestRoad = *_roadVector.begin();
+  road currentSmallestRoad = *_roadVector.begin();
 
-        //@step1
-        for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
-        {
-                if (currentSmallestRoad.getDistance() > roadIt->getDistance())
-                {
-                        currentSmallestRoad = *roadIt;
-                }
-        }
+  //@step1
+  for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
+  {
+    if (currentSmallestRoad.getDistance() > roadIt->getDistance())
+    {
+      currentSmallestRoad = *roadIt;
+    }
+  }
 
 
+  if (_debug)
+  {
+    cout << currentSmallestRoad.getDistance() << endl;
+  }
+
+
+  /**
+   * After completing step 1 add the first/starting road to are final vector
+   */
+  finalVector.push_back(currentSmallestRoad);
+  visitedTowns.push_back(currentSmallestRoad.getTownOnePointer());
+  visitedTowns.push_back(currentSmallestRoad.getTownTwoPointer());
+
+  //@step2
+  while (visitedTowns.size() < _townVector.size())
+  {
+    //Reset the smallest road num to a extremely large number
+    currentSmallestRoadNum = std::numeric_limits<int>::max();
+
+    //@step2.1
+    for (townIt = visitedTowns.begin(); townIt != visitedTowns.end(); townIt++)
+    {
+      if (_debug)
+      {
+        cout << endl;
+        cout << "current Town working:" << (*townIt)->getTownName() << endl;
+      }
+
+
+      //@step2.2
+      for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
+      {
         if (_debug)
         {
-                cout << currentSmallestRoad.getDistance() << endl;
+          cout << "\t canidate Towns" << endl;
+          cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
+          cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
         }
 
 
-        /**
-         * After completing step 1 add the first/starting road to are final vector
-         */
-        finalVector.push_back(currentSmallestRoad);
-        visitedTowns.push_back(currentSmallestRoad.getTownOnePointer());
-        visitedTowns.push_back(currentSmallestRoad.getTownTwoPointer());
-
-        //@step2
-        while (visitedTowns.size() < _townVector.size())
+        //@step2.3
+        if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
+            !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
         {
-                //Reset the smallest road num to a extremely large number
-                currentSmallestRoadNum = std::numeric_limits<int>::max();
-
-                //@step2.1
-                for (townIt = visitedTowns.begin(); townIt != visitedTowns.end(); townIt++)
-                {
-                        if (_debug)
-                        {
-                                cout << endl;
-                                cout << "current Town working:" << (*townIt)->getTownName() << endl;
-                        }
+          //@step2.4
+          if ((*townIt)->getConRoadVector()[roadPos]->getDistance() < currentSmallestRoadNum)
+          {
+            if (_debug)
+            {
+              cout << " \t Town Picked:" << endl;
+              cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
+              cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
+            }
 
 
-                        //@step2.2
-                        for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
-                        {
-                                if (_debug)
-                                {
-                                        cout << "\t canidate Towns" << endl;
-                                        cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
-                                        cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
-                                }
-
-
-                                //@step2.3
-                                if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
-                                    !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
-                                {
-                                        //@step2.4
-                                        if ((*townIt)->getConRoadVector()[roadPos]->getDistance() < currentSmallestRoadNum)
-                                        {
-                                                if (_debug)
-                                                {
-                                                        cout << " \t Town Picked:" << endl;
-                                                        cout << "\t \t one:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << endl;
-                                                        cout << "\t \t two:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << endl;
-                                                }
-
-
-                                                currentSmallestRoad = (*(*townIt)->getConRoadVector()[roadPos]);
-                                                currentSmallestRoadNum = currentSmallestRoad.getDistance();
-                                        }
-                                }
-                        }
-                }
-
-
-                if (_debug)
-                {
-                        cout << "one:" << currentSmallestRoad.getTownOne() << "->" << "two:" << currentSmallestRoad.getTownTwo() << "||" << currentSmallestRoad.getDistance() << endl;
-                        cout << endl;
-                        cout << endl;
-                }
-
-
-                /**
-                 * Add the current smallest Road to the final vector
-                 */
-                finalVector.push_back(currentSmallestRoad);
-
-                /**
-                 * Check to see if the road on each side is in our vistedTowns if not add it else do nothing.
-                 * We do not want to add duplicates to this vector since we use to to see if we are done.
-                 */
-                if (!townInVector(visitedTowns, currentSmallestRoad.getTownOne()))
-                {
-                        visitedTowns.push_back(currentSmallestRoad.getTownOnePointer());
-                }
-
-                if (!townInVector(visitedTowns, currentSmallestRoad.getTownTwo()))
-                {
-                        visitedTowns.push_back(currentSmallestRoad.getTownTwoPointer());
-                }
-        }
-
-        cout << "shortest path:" << endl;
-
-        /**
-         * Simple loop, working through i final vector and printing out the roads we used to connect the graph
-         */
-        for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
-        {
-                cout << roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
+            currentSmallestRoad = (*(*townIt)->getConRoadVector()[roadPos]);
+            currentSmallestRoadNum = currentSmallestRoad.getDistance();
+          }
         }
       }
+    }
+
+
+    if (_debug)
+    {
+      cout << "one:" << currentSmallestRoad.getTownOne() << "->" << "two:" << currentSmallestRoad.getTownTwo() << "||" << currentSmallestRoad.getDistance() << endl;
+      cout << endl;
+      cout << endl;
+    }
 
 
 
@@ -508,116 +478,208 @@ void graph::roadUpgrade()
 
 void graph::bridgesGone()
 {
-        vector<town *> visitedTowns;
-        vector<town *> currentTownsGraph;
+  vector<town *> visitedTowns;
+  vector<town *> currentTownsGraph;
 
-        town *townToAdd;
+  town *townToAdd;
 
-        vector<town *>::iterator townIt;
+  vector<town *>::iterator townIt;
 
-        vector<town>::iterator townItNonPointer;
+  vector<town>::iterator townItNonPointer;
 
-        bool townsToAdd;
+  bool townsToAdd;
 
 
 
-        while (visitedTowns.size() < _townVector.size())
+  while (visitedTowns.size() < _townVector.size())
+  {
+    //TODO Prime the pump with a new town add it to both vectors
+    currentTownsGraph.clear();
+
+    if (_debug)
+    {
+      cout << "currentTownsGraph size:" << currentTownsGraph.size() << endl;
+      cout << "visitedTowns size:" << visitedTowns.size() << endl;
+    }
+
+    for (townItNonPointer = _townVector.begin(); townItNonPointer != _townVector.end(); townItNonPointer++)
+    {
+      if (!townInVector(visitedTowns, townItNonPointer->getTownName()))
+      {
+        currentTownsGraph.push_back(&(*townItNonPointer));
+        visitedTowns.push_back(&(*townItNonPointer));
+        break;
+      }
+    }
+
+    townsToAdd = true;
+
+    while (townsToAdd)
+    {
+      townsToAdd = false;
+
+      if (_debug)
+      {
+        cout << "currentTownsGraph size:" << currentTownsGraph.size() << endl;
+        cout << "visitedTowns size:" << visitedTowns.size() << endl;
+      }
+
+      for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
+      {
+        if (_debug)
         {
-                //TODO Prime the pump with a new town add it to both vectors
-                currentTownsGraph.clear();
-
-                if (_debug)
-                {
-                        cout << "currentTownsGraph size:" << currentTownsGraph.size() << endl;
-                        cout << "visitedTowns size:" << visitedTowns.size() << endl;
-                }
-
-                for (townItNonPointer = _townVector.begin(); townItNonPointer != _townVector.end(); townItNonPointer++)
-                {
-                        if (!townInVector(visitedTowns, townItNonPointer->getTownName()))
-                        {
-                                currentTownsGraph.push_back(&(*townItNonPointer));
-                                visitedTowns.push_back(&(*townItNonPointer));
-                                break;
-                        }
-                }
-
-
-                townsToAdd = true;
-
-                while (townsToAdd)
-                {
-                        townsToAdd = false;
-
-                        if (_debug)
-                        {
-                                cout << "currentTownsGraph size:" << currentTownsGraph.size() << endl;
-                                cout << "visitedTowns size:" << visitedTowns.size() << endl;
-                        }
-
-                        for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
-                        {
-                                if (_debug)
-                                {
-                                        cout << (*townIt)->getTownName() << "| number of roads" << (*townIt)->getConRoadVector().size() << endl;
-                                }
-
-                                for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
-                                {
-                                        if (_debug)
-                                        {
-                                                cout << endl;
-                                                cout << "town 1:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) << endl;
-
-                                                cout << "town 2:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()) << endl;
-
-                                                cout << "current Road bridge:" << (*townIt)->getConRoadVector()[roadPos]->checkBridge() << endl;
-                                        }
-
-                                        if (!(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne())) ||
-                                            !(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo())))
-                                        {
-                                                if (!((*townIt)->getConRoadVector()[roadPos]->checkBridge()))
-                                                {
-                                                        townsToAdd = true;
-
-                                                        if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()))
-                                                        {
-                                                                townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownOnePointer();
-                                                        }
-                                                        else if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
-                                                        {
-                                                                townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownTwoPointer();
-                                                        }
-                                                }
-                                        }
-                                }
-                        }
-
-
-                        if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
-                        {
-                                currentTownsGraph.push_back(townToAdd);
-                        }
-
-                        if (!townInVector(visitedTowns, townToAdd->getTownName()))
-                        {
-                                visitedTowns.push_back(townToAdd);
-                        }
-                }
-
-                if (_debug)
-                {
-                        cout << "currentTownsGraph size:" << currentTownsGraph.size() << endl;
-                        cout << "visitedTowns size:" << visitedTowns.size() << endl;
-                }
-
-                cout << "If all brigdes fail the following towns would form a isolated graph" << endl;
-                for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
-                {
-                        cout << "\t" << (*townIt)->getTownName() << endl;
-                }
+          cout << (*townIt)->getTownName() << "| number of roads" << (*townIt)->getConRoadVector().size() << endl;
         }
+
+        for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
+        {
+          if (_debug)
+          {
+            cout << endl;
+            cout << "town 1:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) << endl;
+
+            cout << "town 2:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()) << endl;
+
+            cout << "current Road bridge:" << (*townIt)->getConRoadVector()[roadPos]->checkBridge() << endl;
+          }
+
+          if (!(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne())) ||
+              !(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo())))
+          {
+            if (!((*townIt)->getConRoadVector()[roadPos]->checkBridge()))
+            {
+              townsToAdd = true;
+
+              if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()))
+              {
+                townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownOnePointer();
+              }
+              else if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
+              {
+                townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownTwoPointer();
+              }
+            }
+          }
+        }
+      }
+
+
+      if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
+      {
+        currentTownsGraph.push_back(townToAdd);
+      }
+
+      if (!townInVector(visitedTowns, townToAdd->getTownName()))
+      {
+        visitedTowns.push_back(townToAdd);
+      }
+    }
+
+    if (_debug)
+    {
+      cout << "currentTownsGraph size:" << currentTownsGraph.size() << endl;
+      cout << "visitedTowns size:" << visitedTowns.size() << endl;
+    }
+
+    cout << "If all brigdes fail the following towns would form a isolated graph" << endl;
+    for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
+    {
+      cout << "\t" << (*townIt)->getTownName() << endl;
+    }
+  }
+}
+
+
+void graph::townDestroyed()
+{
+  vector<town>::iterator townToAvoid;
+
+  vector<town *> visitedTowns;
+  vector<town *> currentTownsGraph;
+
+  town *townToAdd;
+
+  vector<town *>::iterator townIt;
+
+  vector<town>::iterator townItNonPointer;
+
+  bool townsToAdd;
+
+
+  for (townToAvoid = _townVector.begin(); townToAvoid != _townVector.end(); townToAvoid++)
+  {
+    visitedTowns.clear();
+    currentTownsGraph.clear();
+
+    while (visitedTowns.size() < _townVector.size() - 1)
+    {
+      for (townItNonPointer = _townVector.begin(); townItNonPointer != _townVector.end(); townItNonPointer++)
+      {
+        if (!(townInVector(visitedTowns, townItNonPointer->getTownName())) && (townToAvoid->getTownName() != townItNonPointer->getTownName()))
+        {
+          currentTownsGraph.push_back(&(*townItNonPointer));
+          visitedTowns.push_back(&(*townItNonPointer));
+          break;
+        }
+      }
+
+      townsToAdd = true;
+
+      while (townsToAdd)
+      {
+        townsToAdd = false;
+        for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
+        {
+          if (_debug)
+          {
+            cout << (*townIt)->getTownName() << "| number of roads" << (*townIt)->getConRoadVector().size() << endl;
+          }
+
+          for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
+          {
+            if (_debug)
+            {
+              cout << endl;
+              cout << "town 1:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) << endl;
+
+              cout << "town 2:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()) << endl;
+
+              cout << "current Road bridge:" << (*townIt)->getConRoadVector()[roadPos]->checkBridge() << endl;
+            }
+
+
+            if (!(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne())) &&
+                (townToAvoid->getTownName() != (*townIt)->getConRoadVector()[roadPos]->getTownOne()))
+            {
+              townsToAdd = true;
+              townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownOnePointer();
+            }
+            else if (!(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo())) &&
+                     (townToAvoid->getTownName() != (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
+            {
+              townsToAdd = true;
+              townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownTwoPointer();
+            }
+          }
+        }
+
+        if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
+        {
+          currentTownsGraph.push_back(townToAdd);
+        }
+
+        if (!townInVector(visitedTowns, townToAdd->getTownName()))
+        {
+          visitedTowns.push_back(townToAdd);
+        }
+      }
+
+      if (!townsToAdd && (visitedTowns.size() < _townVector.size() - 1))
+      {
+        cout << "this town would cause a split:" << townToAvoid->getTownName() << endl;
+      }
+    }
+  }
 }
 
 
@@ -635,16 +697,16 @@ void graph::bridgesGone()
  */
 bool graph::townInVector(vector<town *> townVector, string townName)
 {
-        vector<town *>::iterator townIt;
+  vector<town *>::iterator townIt;
 
-        for (townIt = townVector.begin(); townIt != townVector.end(); townIt++)
-        {
-                if ((*townIt)->getTownName() == townName)
-                {
-                        return true;
-                }
-        }
-        return false;
+  for (townIt = townVector.begin(); townIt != townVector.end(); townIt++)
+  {
+    if ((*townIt)->getTownName() == townName)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 
@@ -661,25 +723,25 @@ bool graph::townInVector(vector<town *> townVector, string townName)
  */
 void graph::removeTownFromVector(vector<town> *townVector, string townName)
 {
-        vector<town>::iterator townIt;
-        if (_debug)
-        {
-                cout << "town in delete size:" << townVector->size() << endl;
-        }
-        for (townIt = townVector->begin(); townIt != townVector->end(); townIt++)
-        {
-                if (_debug)
-                {
-                        cout << "town from it:" << townIt->getTownName() << endl;
-                        cout << "the town to remove:" << townName << endl;
-                }
+  vector<town>::iterator townIt;
+  if (_debug)
+  {
+    cout << "town in delete size:" << townVector->size() << endl;
+  }
+  for (townIt = townVector->begin(); townIt != townVector->end(); townIt++)
+  {
+    if (_debug)
+    {
+      cout << "town from it:" << townIt->getTownName() << endl;
+      cout << "the town to remove:" << townName << endl;
+    }
 
-                if (townIt->getTownName() == townName)
-                {
-                        townVector->erase(townIt);
-                        break;
-                }
-        }
+    if (townIt->getTownName() == townName)
+    {
+      townVector->erase(townIt);
+      break;
+    }
+  }
 }
 
 
@@ -696,23 +758,23 @@ void graph::removeTownFromVector(vector<town> *townVector, string townName)
  */
 void graph::removeRoadFromVector(vector<road> *roadVector, road theRoad)
 {
-        vector<road>::iterator roadIt;
+  vector<road>::iterator roadIt;
 
-        for (roadIt = roadVector->begin(); roadIt != roadVector->end(); roadIt++)
-        {
-                if (_debug)
-                {
-                        cout << endl;
-                        cout << "road it 1:" << roadIt->getTownOne() << endl;
-                        cout << "current road 1:" << theRoad.getTownOne() << endl;
-                        cout << endl;
-                        cout << "road it 2:" << roadIt->getTownTwo() << endl;
-                        cout << "current road 2:" << theRoad.getTownTwo() << endl;
-                }
-                if ((roadIt->getTownOne() == theRoad.getTownOne()) && (roadIt->getTownTwo() == theRoad.getTownTwo()))
-                {
-                        roadVector->erase(roadIt);
-                        break;
-                }
-        }
+  for (roadIt = roadVector->begin(); roadIt != roadVector->end(); roadIt++)
+  {
+    if (_debug)
+    {
+      cout << endl;
+      cout << "road it 1:" << roadIt->getTownOne() << endl;
+      cout << "current road 1:" << theRoad.getTownOne() << endl;
+      cout << endl;
+      cout << "road it 2:" << roadIt->getTownTwo() << endl;
+      cout << "current road 2:" << theRoad.getTownTwo() << endl;
+    }
+    if ((roadIt->getTownOne() == theRoad.getTownOne()) && (roadIt->getTownTwo() == theRoad.getTownTwo()))
+    {
+      roadVector->erase(roadIt);
+      break;
+    }
+  }
 }
