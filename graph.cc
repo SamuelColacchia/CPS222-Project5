@@ -440,7 +440,6 @@ void graph::roadUpgrade()
       cout << endl;
     }
 
-
     /**
      * Add the current smallest Road to the final vector
      */
