@@ -464,7 +464,7 @@ void graph::roadUpgrade()
                 cout << roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
         }
       }
-    }
+
 
 
     if (_debug)
