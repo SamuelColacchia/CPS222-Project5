@@ -47,6 +47,6 @@ public:
 private:
         vector <road> _roadVector;
         vector <town> _townVector;
-        static const bool _debug = true;
+        static const bool _debug = false;
 
 };

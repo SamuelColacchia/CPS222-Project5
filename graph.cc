@@ -134,7 +134,7 @@ void graph::bfs()
     {
       //get the names of town one
       string townOne = roadIt->getTownOne();
-      string townTwo= roadIt->getTownTwo();
+      string townTwo = roadIt->getTownTwo();
 
       int i = 0;
       bool search;
@@ -238,7 +238,7 @@ void graph::dijkstraMethod()
     {
       std::cout << toVisit.size() << std::endl;
     }
-    
+
     for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
     {
       townOne = roadIt->getTownOne();
@@ -459,6 +459,8 @@ void graph::bridgesGone()
   vector<town *> visitedTowns;
   vector<town *> currentTownsGraph;
 
+  town *townToAdd;
+
   vector<town *>::iterator townIt;
 
   vector<town>::iterator townItNonPointer;
@@ -503,34 +505,52 @@ void graph::bridgesGone()
 
       for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
       {
+        if (_debug)
+        {
+          cout << (*townIt)->getTownName() << "| number of roads" << (*townIt)->getConRoadVector().size() << endl;
+        }
+
         for (int roadPos = 0; roadPos < (*townIt)->getConRoadVector().size(); roadPos++)
         {
-          if ()
+          if (_debug)
           {
-            cout << (*townIt)->getTownName() << "| number of roads" << (*townIt)->getConRoadVector().size() << endl;
+            cout << endl;
+            cout << "town 1:" << (*townIt)->getConRoadVector()[roadPos]->getTownOne() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) << endl;
+
+            cout << "town 2:" << (*townIt)->getConRoadVector()[roadPos]->getTownTwo() << " in vector :" << townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()) << endl;
+
+            cout << "current Road bridge:" << (*townIt)->getConRoadVector()[roadPos]->checkBridge() << endl;
           }
 
-
-          if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()) ||
-              !townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
+          if (!(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne())) ||
+              !(townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo())))
           {
-            if ((*townIt)->getConRoadVector()[roadPos]->checkBridge())
+            if (!((*townIt)->getConRoadVector()[roadPos]->checkBridge()))
             {
               townsToAdd = true;
+
               if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownOne()))
               {
-                currentTownsGraph.push_back(*townIt);
-                visitedTowns.push_back(*townIt);
+                townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownOnePointer();
               }
-
-              if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
+              else if (!townInVector(visitedTowns, (*townIt)->getConRoadVector()[roadPos]->getTownTwo()))
               {
-                currentTownsGraph.push_back(*townIt);
-                visitedTowns.push_back(*townIt);
+                townToAdd = (*townIt)->getConRoadVector()[roadPos]->getTownTwoPointer();
               }
             }
           }
         }
+      }
+
+
+      if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
+      {
+        currentTownsGraph.push_back(townToAdd);
+      }
+
+      if (!townInVector(visitedTowns, townToAdd->getTownName()))
+      {
+        visitedTowns.push_back(townToAdd);
       }
     }
 
