@@ -95,5 +95,7 @@ int main(int argc, char *argv[])
     theGraph.dijkstraMethod();
     cout << endl;
     theGraph.roadUpgrade();
+    cout << endl;
+    theGraph.bridgesGone();
   }
 }

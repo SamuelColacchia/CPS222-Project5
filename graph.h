@@ -42,9 +42,11 @@ public:
         void removeTownFromVector(vector<town> *townVector, string townName);
         void removeRoadFromVector(vector<road> *roadVector, road theRoad);
 
+        void bridgesGone();
+
 private:
         vector <road> _roadVector;
         vector <town> _townVector;
-        static const bool _debug = false;
+        static const bool _debug = true;
 
 };
