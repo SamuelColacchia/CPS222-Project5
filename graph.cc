@@ -514,7 +514,7 @@ void graph::bridgesGone()
 
     townsToAdd = true;
 
-    while (townsToAdd)
+    while (townsToAdd && visitedTowns.size() < _townVector.size())
     {
       townsToAdd = false;
 
@@ -564,14 +564,15 @@ void graph::bridgesGone()
       }
 
 
-      if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
-      {
-        currentTownsGraph.push_back(townToAdd);
-      }
+
 
       if (!townInVector(visitedTowns, townToAdd->getTownName()))
       {
         visitedTowns.push_back(townToAdd);
+        if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
+        {
+          currentTownsGraph.push_back(townToAdd);
+        }
       }
     }
 
@@ -625,7 +626,7 @@ void graph::townDestroyed()
 
       townsToAdd = true;
 
-      while (townsToAdd)
+      while (townsToAdd && visitedTowns.size() < _townVector.size())
       {
         townsToAdd = false;
         for (townIt = currentTownsGraph.begin(); townIt != currentTownsGraph.end(); townIt++)
@@ -663,20 +664,20 @@ void graph::townDestroyed()
           }
         }
 
-        if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
-        {
-          currentTownsGraph.push_back(townToAdd);
-        }
-
         if (!townInVector(visitedTowns, townToAdd->getTownName()))
         {
           visitedTowns.push_back(townToAdd);
+          if (!townInVector(currentTownsGraph, townToAdd->getTownName()))
+          {
+            currentTownsGraph.push_back(townToAdd);
+          }
         }
       }
 
       if (!townsToAdd && (visitedTowns.size() < _townVector.size() - 1))
       {
         cout << "this town would cause a split:" << townToAvoid->getTownName() << endl;
+        break;
       }
     }
   }
