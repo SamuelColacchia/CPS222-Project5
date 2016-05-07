@@ -97,7 +97,6 @@ int main(int argc, char *argv[])
     theGraph.roadUpgrade();
     cout << endl;
     theGraph.bridgesGone();
-    cout << endl;
     theGraph.townDestroyed();
   }
 }

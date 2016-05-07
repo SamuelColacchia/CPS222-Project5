@@ -34,7 +34,7 @@ public:
         void connectRoadsTowns();
         void bfs();
         void dijkstraMethod();
-        int smallestPath(int D[], list <int> toVisits);
+        int smallestPath(double distance[], list <int> toVisits);
 
         void roadUpgrade();
         bool townInVector(vector<town*> townVector, string townName);
