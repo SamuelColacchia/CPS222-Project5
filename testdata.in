@@ -1,0 +1,17 @@
+3 3
+SALEM
+BEVERLY
+DANVERS
+SALEM BEVERLY B 5
+BEVERLY DANVERS B 3
+DANVERS SALEM N 2
+5 4
+Boston
+Hartford
+providence
+NewYork
+chicago
+Boston Hartford N 200
+chicago Hartford B 300
+NewYork Hartford N 400
+providence Hartford B 500
