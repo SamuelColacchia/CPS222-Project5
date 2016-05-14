@@ -81,6 +81,13 @@ void graph::connectRoadsTowns()
 }
 
 
+/**
+ * Test function used to ensure that the program structure was working
+ * and that we created the objects correctly
+ *
+ * @description : if the program is created correctly then we loop through our town vector
+ * and
+ */
 void graph::printTest()
 {
   vector<town>::iterator it;
@@ -94,6 +101,7 @@ void graph::printTest()
 void graph::bfs()
 {
   string bridge;
+
   //createa vector iterator for the roads
   //and a bool array, then set the entire array to false
   vector<road>::iterator roadIt;
@@ -116,29 +124,33 @@ void graph::bfs()
     //get the name of that city using the city array
     string currentCity = _townVector[current].getTownName();
     //print the city name
-    cout <<currentCity << endl;
+    cout << currentCity << endl;
     //then print out all the towns connected to it
     for (roadIt = _roadVector.begin(); roadIt != _roadVector.end(); roadIt++)
     {
       if (currentCity == roadIt->getTownOne())
       {
-        if(roadIt->checkBridge()){
+        if (roadIt->checkBridge())
+        {
           bridge = "bridge";
         }
-        else{
+        else
+        {
           bridge = "road";
         }
-        cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance()<< " mi via " << bridge << endl;
+        cout << "\t" << roadIt->getTownTwo() << " " << roadIt->getDistance() << " mi via " << bridge << endl;
       }
       else if (currentCity == roadIt->getTownTwo())
       {
-        if(roadIt->checkBridge()){
+        if (roadIt->checkBridge())
+        {
           bridge = "bridge";
         }
-        else{
+        else
+        {
           bridge = "road";
         }
-        cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance()<< " mi via " << bridge << endl;
+        cout << "\t" << roadIt->getTownOne() << " " << roadIt->getDistance() << " mi via " << bridge << endl;
       }
     }
 
@@ -198,11 +210,12 @@ void graph::bfs()
 
 
 //jordon helped me(matt) with this, and stack overflow :)
+
 /*
-  this takes bothe the distance and town indexs, compares the towns not already
-  deleted and selects the town with the small distance.
-  this index is then returned
-*/
+ * this takes bothe the distance and town indexs, compares the towns not already
+ * deleted and selects the town with the small distance.
+ * this index is then returned
+ */
 int graph::smallestPath(double distance[], list<int> toVisit)
 {
   //set smallestPath to the first index
@@ -251,7 +264,6 @@ void graph::dijkstraMethod()
   {
     distance[i] = 1000000000;
     toVisit.push_back(i);
-
   }
 
   //set first town's distance to 0
@@ -515,11 +527,21 @@ void graph::roadUpgrade()
    */
   for (roadIt = finalVector.begin(); roadIt != finalVector.end(); roadIt++)
   {
-    cout <<"\t"<< roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
+    cout << "\t" << roadIt->getTownOne() << "<->" << roadIt->getTownTwo() << ": " << roadIt->getDistance() << endl;
   }
 }
 
 
+/**
+ * Determine what towns would be disconected if all bridges were destroyed
+ *
+ * @description : this function takes advantage of all the work we did to connect the graph with pointers.
+ * Works by looping through all the town and recording the visited towns. In the outer loop we pick a town,
+ * then we follow all the towns from that first towns, making sure to only follow roads that are not bridges.
+ * Once we can no longer add a new town we consider that section to be seperate. We then pick another town
+ * that we have not visited and repeat.
+ *
+ */
 void graph::bridgesGone()
 {
   vector<town *> visitedTowns;
@@ -537,7 +559,6 @@ void graph::bridgesGone()
 
   while (visitedTowns.size() < _townVector.size())
   {
-    //TODO Prime the pump with a new town add it to both vectors
     currentTownsGraph.clear();
 
     if (_debug)
@@ -609,7 +630,6 @@ void graph::bridgesGone()
 
 
 
-
       if (!townInVector(visitedTowns, townToAdd->getTownName()))
       {
         visitedTowns.push_back(townToAdd);
@@ -635,6 +655,13 @@ void graph::bridgesGone()
 }
 
 
+/**
+ * Check if destroying a town will cause any portion of the graph to be disconected.
+ *
+ * @description : pick a town to avoid then peform the same loop we did in bridgesGone().
+ * the only difference being that we print the information differently.
+ *
+ */
 void graph::townDestroyed()
 {
   vector<town>::iterator townToAvoid;

@@ -92,11 +92,16 @@ int main(int argc, char *argv[])
 
     theGraph.bfs();
     cout << endl;
+    cout << endl;
     theGraph.dijkstraMethod();
+    cout << endl;
     cout << endl;
     theGraph.roadUpgrade();
     cout << endl;
+    cout << endl;
     theGraph.bridgesGone();
+    cout << endl;
+    cout << endl;
     theGraph.townDestroyed();
   }
 }
